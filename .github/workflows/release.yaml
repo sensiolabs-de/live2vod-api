@@ -1,0 +1,66 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      SENSIOLABS_BOT_EMAIL: "bot@sensiolabs.de"
+      SENSIOLABS_BOT_NAME: "sensiolabs-bot"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "${{ env.SENSIOLABS_BOT_NAME }}"
+          git config user.email "${{ env.SENSIOLABS_BOT_EMAIL }}"
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: |
+          LATEST_TAG=$(git tag -l --sort=-v:refname | head -n 1)
+          if [ -z "$LATEST_TAG" ]; then
+            echo "version=0.0.0" >> $GITHUB_OUTPUT
+          else
+            # Remove 'v' prefix if present
+            VERSION=${LATEST_TAG#v}
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Increment minor version
+        id: increment_version
+        run: |
+          VERSION="${{ steps.get_latest_tag.outputs.version }}"
+          if [ "$VERSION" = "0.0.0" ]; then
+            NEW_VERSION="1.0.0"
+          else
+            IFS='.' read -r major minor patch <<< "$VERSION"
+            NEW_MINOR=$((minor + 1))
+            NEW_VERSION="${major}.${NEW_MINOR}.0"
+          fi
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "new_tag=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create and push tag
+        run: |
+          git tag -a "${{ steps.increment_version.outputs.new_tag }}" -m "Release ${{ steps.increment_version.outputs.new_tag }}"
+          git push origin "${{ steps.increment_version.outputs.new_tag }}"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.increment_version.outputs.new_tag }}
+          name: Release ${{ steps.increment_version.outputs.new_tag }}
+          generate_release_notes: true
+          token: ${{ secrets.GITHUB_TOKEN }}
