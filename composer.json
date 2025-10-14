@@ -1,0 +1,27 @@
+{
+    "name": "sensiolabs-de/live2vod-api",
+    "description": "Live2VOD API related objects",
+    "license": "proprietary",
+    "type": "library",
+    "require": {
+        "php": "^8.1.2",
+        "oskarstark/enum-helper": "^1.8",
+        "oskarstark/trimmed-non-empty-string": "^1.9",
+        "symfony/http-kernel": "^6.4 || ^7.0",
+        "symfony/uid": "^6.4 || ^7.0",
+        "thecodingmachine/safe": "^3.0",
+        "webmozart/assert": "^1.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "SensioLabs\\Live2Vod\\Api\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": false,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    }
+}
