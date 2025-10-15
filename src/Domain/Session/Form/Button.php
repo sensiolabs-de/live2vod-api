@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace SensioLabs\Live2Vod\Api\Domain\Session\Form;
 
 /**
- * @phpstan-type ButtonArray array{field: string, icon: string}
+ * @phpstan-type ButtonArray array{field: string, icons: array{true: string, false: string}}
  */
 final class Button
 {
     public function __construct(
         private Name $field,
-        private Icon $icon,
+        private Icon $iconWhenTrue,
+        private Icon $iconWhenFalse,
     ) {
     }
 
@@ -20,9 +21,14 @@ final class Button
         return $this->field;
     }
 
-    public function getIcon(): Icon
+    public function getIconWhenTrue(): Icon
     {
-        return $this->icon;
+        return $this->iconWhenTrue;
+    }
+
+    public function getIconWhenFalse(): Icon
+    {
+        return $this->iconWhenFalse;
     }
 
     /**
@@ -32,7 +38,8 @@ final class Button
     {
         return new self(
             field: new Name($data['field']),
-            icon: Icon::from($data['icon']),
+            iconWhenTrue: Icon::from($data['icons']['true']),
+            iconWhenFalse: Icon::from($data['icons']['false']),
         );
     }
 
@@ -43,7 +50,10 @@ final class Button
     {
         return [
             'field' => $this->field->toString(),
-            'icon' => $this->icon->value,
+            'icons' => [
+                'true' => $this->iconWhenTrue->value,
+                'false' => $this->iconWhenFalse->value,
+            ],
         ];
     }
 }
