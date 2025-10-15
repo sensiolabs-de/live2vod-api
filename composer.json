@@ -10,7 +10,8 @@
         "symfony/http-kernel": "^6.4 || ^7.0",
         "symfony/uid": "^6.4 || ^7.0",
         "thecodingmachine/safe": "^3.0",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11",
+        "zenstruck/foundry": "^2.7.5"
     },
     "autoload": {
         "psr-4": {
