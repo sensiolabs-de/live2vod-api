@@ -20,8 +20,7 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Placeholder;
  *     placeholder: string|null,
  *     help: string|null,
  *     disabled: bool,
- *     default: bool,
- *     showInListView: bool
+ *     default: bool
  * }
  */
 final class BooleanField implements Field
@@ -34,7 +33,6 @@ final class BooleanField implements Field
         private bool $required = false,
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
-        private bool $showInListView = false,
     ) {
     }
 
@@ -51,7 +49,6 @@ final class BooleanField implements Field
             required: $data['required'] ?? false,
             placeholder: isset($data['placeholder']) ? new Placeholder($data['placeholder']) : null,
             help: isset($data['help']) ? new Help($data['help']) : null,
-            showInListView: $data['showInListView'] ?? false,
         );
     }
 
@@ -69,7 +66,6 @@ final class BooleanField implements Field
             'help' => $this->help?->toString(),
             'disabled' => $this->disabled,
             'default' => $this->default,
-            'showInListView' => $this->showInListView,
         ];
     }
 
@@ -106,11 +102,6 @@ final class BooleanField implements Field
     public function getHelp(): ?Help
     {
         return $this->help;
-    }
-
-    public function showInListView(): bool
-    {
-        return $this->showInListView;
     }
 
     public function getType(): FieldType
