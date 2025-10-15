@@ -7,7 +7,7 @@ namespace SensioLabs\Live2Vod\Api\Domain\Webhook\Event;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
 use Webmozart\Assert\Assert;
 
-final class SessionDeletedEvent
+final class SessionDeletedEvent implements WebhookEvent
 {
     public readonly SessionId $sessionId;
 

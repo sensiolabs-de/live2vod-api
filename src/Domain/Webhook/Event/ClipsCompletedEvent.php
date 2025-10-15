@@ -8,7 +8,7 @@ use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Clip;
 use Webmozart\Assert\Assert;
 
-final class ClipsCompletedEvent
+final class ClipsCompletedEvent implements WebhookEvent
 {
     public readonly SessionId $sessionId;
 
