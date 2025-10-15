@@ -57,4 +57,9 @@ final class Token
     {
         return $at > $this->expiresAt;
     }
+
+    public function toBase64(): string
+    {
+        return base64_encode($this->value);
+    }
 }
