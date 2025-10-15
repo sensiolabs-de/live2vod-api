@@ -9,13 +9,13 @@ use SensioLabs\Live2Vod\Api\Domain\Clip\FormData;
 use SensioLabs\Live2Vod\Api\Domain\Clip\Status;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\ClipId;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
-use App\Enum\CallbackEvent;
+use SensioLabs\Live2Vod\Api\Domain\Webhook\Event;
 
 final class ClipStatusCallbackPayload
 {
     public function __construct(
         public SessionId $sessionId,
-        public CallbackEvent $event,
+        public Event $event,
         public ClipId $clipId,
         public Status $status,
         public int $position,
