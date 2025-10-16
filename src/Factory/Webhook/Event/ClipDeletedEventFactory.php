@@ -4,31 +4,11 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api\Factory\Webhook\Event;
 
-use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipDeletedEvent;
 use Symfony\Component\Uid\Ulid;
-use Zenstruck\Foundry\ObjectFactory;
+use Zenstruck\Foundry\ArrayFactory;
 
-/**
- * @extends ObjectFactory<ClipDeletedEvent>
- */
-final class ClipDeletedEventFactory extends ObjectFactory
+final class ClipDeletedEventFactory extends ArrayFactory
 {
-    /**
-     * @return class-string<ClipDeletedEvent>
-     */
-    public static function class(): string
-    {
-        return ClipDeletedEvent::class;
-    }
-
-    protected function initialize(): static
-    {
-        return $this
-            ->instantiateWith(static function (array $attributes): ClipDeletedEvent {
-                return new ClipDeletedEvent($attributes);
-            });
-    }
-
     /**
      * @return array<string, mixed>
      */

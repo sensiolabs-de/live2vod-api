@@ -5,31 +5,11 @@ declare(strict_types=1);
 namespace SensioLabs\Live2Vod\Api\Factory\Webhook\Event;
 
 use SensioLabs\Live2Vod\Api\Domain\Clip\Status;
-use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipUpdatedEvent;
 use Symfony\Component\Uid\Ulid;
-use Zenstruck\Foundry\ObjectFactory;
+use Zenstruck\Foundry\ArrayFactory;
 
-/**
- * @extends ObjectFactory<ClipUpdatedEvent>
- */
-final class ClipUpdatedEventFactory extends ObjectFactory
+final class ClipUpdatedEventFactory extends ArrayFactory
 {
-    /**
-     * @return class-string<ClipUpdatedEvent>
-     */
-    public static function class(): string
-    {
-        return ClipUpdatedEvent::class;
-    }
-
-    protected function initialize(): static
-    {
-        return $this
-            ->instantiateWith(static function (array $attributes): ClipUpdatedEvent {
-                return new ClipUpdatedEvent($attributes);
-            });
-    }
-
     /**
      * @return array<string, mixed>
      */
