@@ -14,4 +14,6 @@ enum Icon: string
     case AD_STRIKETHROUGH = 'AD_STRIKETHROUGH';
     case AVP = 'AVP';
     case AVP_STRIKETHROUGH = 'AVP_STRIKETHROUGH';
+    case ON = 'ON';
+    case OFF = 'OFF';
 }

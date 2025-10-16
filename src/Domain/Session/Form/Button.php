@@ -11,8 +11,8 @@ final class Button
 {
     public function __construct(
         private Name $field,
-        private Icon $iconWhenTrue,
-        private Icon $iconWhenFalse,
+        private Icon $iconWhenTrue = Icon::ON,
+        private Icon $iconWhenFalse = Icon::OFF,
     ) {
     }
 
