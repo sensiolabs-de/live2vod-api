@@ -1,6 +1,6 @@
 name: Auto Release
 
-on:
+on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main

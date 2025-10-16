@@ -1,10 +1,16 @@
 # Live2VOD API
 
-Live2VOD API related objects.
+A PHP library for interacting with the ORF Live2VOD system, providing API clients, domain objects, webhook handling, and DRM token generation.
 
 ## Overview
 
-This package contains reusable domain objects from the ORF Live2VOD system, including Clip, Session, Form, Identifier, and Marker value objects used throughout the application.
+This package provides a complete SDK for the ORF Live2VOD system, including:
+- HTTP client for session management
+- Domain value objects (Clip, Session, Form, Marker, etc.)
+- Webhook event handling and factories
+- DRM token generation
+- Request/Response DTOs for API communication
+- Foundry factories for testing
 
 ## Installation
 
@@ -16,7 +22,32 @@ composer require sensiolabs-de/live2vod-api
 
 ## Usage
 
-The package provides domain objects in the `SensioLabs\Live2Vod\Api\Domain` namespace:
+### Session API Client
+
+```php
+use SensioLabs\Live2Vod\Api\Client;
+use SensioLabs\Live2Vod\Api\SessionApi;
+use SensioLabs\Live2Vod\Api\Domain\Api\Request\CreateSessionRequest;
+use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
+use Symfony\Component\HttpClient\HttpClient;
+
+// Initialize the client
+$httpClient = HttpClient::create();
+$client = new Client($httpClient, 'https://api.example.com');
+$sessionApi = new SessionApi($client);
+
+// Create a session
+$request = new CreateSessionRequest(/* ... */);
+$response = $sessionApi->create($request);
+
+// Get session details
+$session = $sessionApi->get($response->id);
+
+// Delete a session
+$sessionApi->delete($response->id);
+```
+
+### Domain Objects
 
 ```php
 use SensioLabs\Live2Vod\Api\Domain\Identifier\ClipId;
@@ -42,7 +73,102 @@ $fields = Fields::fromArray([
 ]);
 ```
 
+### Webhook Handling
+
+```php
+use SensioLabs\Live2Vod\Api\Webhook\WebhookEventFactory;
+use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipCompletedEvent;
+
+$factory = new WebhookEventFactory();
+
+// Parse webhook payload
+$event = $factory->createFromPayload($webhookPayload);
+
+if ($event instanceof ClipCompletedEvent) {
+    // Handle clip completed event
+    $clipId = $event->clipId;
+    $sessionId = $event->sessionId;
+}
+```
+
+### DRM Token Generation
+
+```php
+use SensioLabs\Live2Vod\Api\DRM\TokenGenerator;
+use SensioLabs\Live2Vod\Api\Domain\DRM\GeoLocation;
+
+$tokenGenerator = new TokenGenerator('your-secret-key');
+
+$token = $tokenGenerator->generate(
+    sessionId: $sessionId,
+    clipId: $clipId,
+    geoLocation: GeoLocation::AT,
+    expiresAt: new \DateTimeImmutable('+1 hour')
+);
+```
+
 ## Available Components
+
+### API Clients
+
+#### `Client` & `ClientInterface`
+HTTP client wrapper for making API requests with customizable HTTP client support.
+
+#### `SessionApi` & `SessionApiInterface`
+High-level API for session management:
+- `create(CreateSessionRequest)` - Create new session
+- `get(SessionId)` - Retrieve session details
+- `delete(SessionId)` - Delete session
+
+#### `NullSessionApi`
+Null object implementation for testing/development.
+
+### API Request/Response (`Domain\Api`)
+
+#### Request Objects
+- `CreateSessionRequest` - DTO for session creation
+
+#### Response Objects
+- `CreateSessionResponse` - Response after session creation
+- `SessionResponse` - Complete session details
+
+### DRM Components
+
+#### `TokenGenerator` & `TokenGeneratorInterface`
+Generate DRM tokens for protected content access.
+
+#### Domain Objects (`Domain\DRM`)
+- `Token` - DRM token value object with expiration
+- `GeoLocation` - Geographic location enum for geo-blocking
+
+### Webhook Components
+
+#### `WebhookEventFactory` & `WebhookEventFactoryInterface`
+Factory for creating webhook event objects from payloads.
+
+#### Webhook Events (`Domain\Webhook\Event`)
+- `ClipCreatedEvent` - Fired when clip is created
+- `ClipCompletedEvent` - Fired when clip processing completes
+- `ClipUpdatedEvent` - Fired when clip is updated
+- `ClipErrorEvent` - Fired when clip processing fails
+- `ClipDeletedEvent` - Fired when clip is deleted
+- `ClipsCompletedEvent` - Fired when all session clips complete
+- `ClipsFailedEvent` - Fired when session clips fail
+- `SessionDeletedEvent` - Fired when session is deleted
+
+#### Webhook Domain Objects (`Domain\Webhook`)
+- `Event` - Base webhook event interface
+- `Clip` - Clip representation in webhooks
+- `Payload\ClipStatusCallbackPayload` - Payload for clip status callbacks
+- `Payload\ClipDeletedCallbackPayload` - Payload for clip deletion callbacks
+
+### Factory Components
+
+- `AssetsFactory` - Creates clip assets from API responses
+- `CreateSessionRequestFactory` - Creates session requests
+- `SessionConfigFactory` - Creates session configurations
+- `TokenFactory` - Creates DRM tokens
+- `Webhook\WebhookEventFactory` - Creates webhook events
 
 ### Identifiers (`Domain\Identifier`)
 - `ClipId` - ULID-based identifier for clips
@@ -101,10 +227,17 @@ $fields = Fields::fromArray([
 - `Url` - URL value object with validation
 
 ### Exceptions
+- `Exception\InvalidUrlException` - Thrown for invalid URLs
 - `Domain\Clip\Exception\FileNotFoundException` - Thrown when file not found
 - `Domain\Session\Form\Exception\FieldNotFoundException` - Thrown when accessing non-existent field
 - `Domain\Session\Form\Exception\FieldTypeMismatchException` - Thrown when field type doesn't match expected type
-- `Exception\InvalidUrlException` - Thrown for invalid URLs
+
+### Testing Utilities
+
+The package includes Foundry factories for easy test data generation:
+- Located in `src/Factory/` namespace
+- Integrated with `zenstruck/foundry` for seamless testing
+- Use in your tests to create realistic mock data
 
 ## Development
 
@@ -191,10 +324,11 @@ git push git@github.com:sensiolabs-de/live2vod-api.git refs/heads/main
 - PHP 8.1.2 or higher
 - oskarstark/enum-helper ^1.8
 - oskarstark/trimmed-non-empty-string ^1.9
-- symfony/http-kernel ^7.0
-- symfony/uid ^7.0
-- thecodingmachine/safe ^2.5
+- symfony/http-kernel ^6.4 || ^7.0
+- symfony/uid ^6.4 || ^7.0
+- thecodingmachine/safe ^3.0
 - webmozart/assert ^1.11
+- zenstruck/foundry ^2.7.5
 
 ## License
 

@@ -114,7 +114,7 @@ final class AssetsFactory extends ObjectFactory
         return [
             'streams' => $streams,
             'files' => $files,
-            'thumbnail' => new Thumbnail(\sprintf('%s.jpg', new Ulid()->toString())),
+            'thumbnail' => new Thumbnail(\sprintf('%s.jpg', (new Ulid())->toString())),
         ];
     }
 

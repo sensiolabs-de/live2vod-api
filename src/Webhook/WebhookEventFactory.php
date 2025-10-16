@@ -14,7 +14,7 @@ use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipUpdatedEvent;
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\SessionDeletedEvent;
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\WebhookEvent;
 
-final readonly class WebhookEventFactory implements WebhookEventFactoryInterface
+final class WebhookEventFactory implements WebhookEventFactoryInterface
 {
     /**
      * @param array<string, mixed> $data
