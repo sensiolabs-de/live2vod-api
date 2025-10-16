@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SensioLabs\Live2Vod\Api\Domain\Request;
+namespace SensioLabs\Live2Vod\Api\Domain\Api\Request;
 
 use SensioLabs\Live2Vod\Api\Domain\Session\Config;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form;

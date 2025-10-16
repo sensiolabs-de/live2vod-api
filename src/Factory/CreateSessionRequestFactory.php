@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api\Factory;
 
-use SensioLabs\Live2Vod\Api\Domain\Request\CreateSessionRequest;
+use SensioLabs\Live2Vod\Api\Domain\Api\Request\CreateSessionRequest;
 use SensioLabs\Live2Vod\Api\Domain\Session\Config;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form;
 use SensioLabs\Live2Vod\Api\Domain\Url;
