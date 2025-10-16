@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api;
 
-use App\Domain\Api\Request\CreateSessionRequest;
-use App\Domain\Api\Response\CreateSessionResponse;
-use App\Domain\Api\Response\SessionResponse;
-use App\Domain\Identifier\SessionId;
+use SensioLabs\Live2Vod\Api\Domain\Api\Request\CreateSessionRequest;
+use SensioLabs\Live2Vod\Api\Domain\Api\Response\CreateSessionResponse;
+use SensioLabs\Live2Vod\Api\Domain\Api\Response\SessionResponse;
+use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
 
 interface SessionApiInterface
 {
