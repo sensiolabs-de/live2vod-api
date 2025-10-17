@@ -13,7 +13,8 @@ enum FieldType: string
     case STRING = 'string';
     case TEXTAREA = 'textarea';
     case BOOLEAN = 'boolean';
-    case NUMBER = 'number';
+    case INTEGER = 'integer';
+    case FLOAT = 'float';
     case SELECT = 'select';
     case MULTISELECT = 'multiselect';
     case DATE = 'date';

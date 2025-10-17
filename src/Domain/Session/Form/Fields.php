@@ -9,9 +9,10 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Exception\FieldTypeMismatchExcep
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\BooleanField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\DateField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\DateTimeField;
+use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\FloatField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\ImageField;
+use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\IntegerField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\MultiSelectField;
-use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\NumberField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\SelectField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\StringField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\TextareaField;
@@ -97,7 +98,8 @@ final class Fields
             FieldType::STRING => StringField::fromArray($data),
             FieldType::TEXTAREA => TextareaField::fromArray($data),
             FieldType::BOOLEAN => BooleanField::fromArray($data),
-            FieldType::NUMBER => NumberField::fromArray($data),
+            FieldType::INTEGER => IntegerField::fromArray($data),
+            FieldType::FLOAT => FloatField::fromArray($data),
             FieldType::SELECT => SelectField::fromArray($data),
             FieldType::MULTISELECT => MultiSelectField::fromArray($data),
             FieldType::DATE => DateField::fromArray($data),

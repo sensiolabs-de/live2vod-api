@@ -13,7 +13,7 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Placeholder;
 use Webmozart\Assert\Assert;
 
 /**
- * @phpstan-type NumberFieldArray array{
+ * @phpstan-type IntegerFieldArray array{
  *     name: string,
  *     label: string,
  *     type: string,
@@ -21,22 +21,22 @@ use Webmozart\Assert\Assert;
  *     placeholder: string|null,
  *     help: string|null,
  *     disabled: bool,
- *     min: float|null,
- *     max: float|null,
- *     step: float|null,
- *     default: float|null
+ *     min: int|null,
+ *     max: int|null,
+ *     step: int|null,
+ *     default: int|null
  * }
  */
-final class NumberField implements Field
+final class IntegerField implements Field
 {
     public function __construct(
         private Name $name,
         private Label $label,
         private bool $disabled = false,
-        private ?float $min = null,
-        private ?float $max = null,
-        private ?float $step = null,
-        private ?float $default = null,
+        private ?int $min = null,
+        private ?int $max = null,
+        private ?int $step = null,
+        private ?int $default = null,
         private bool $required = false,
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
@@ -56,9 +56,8 @@ final class NumberField implements Field
 
             if (null !== $step && null !== $min) {
                 $diff = $default - $min;
-                $remainder = fmod($diff, $step);
-                // Allow for floating point precision issues
-                Assert::true(abs($remainder) < 0.0000001 || abs($remainder - $step) < 0.0000001, \sprintf('Default value %s must be aligned with step %s starting from minimum %s', $default, $step, $min));
+                $remainder = $diff % $step;
+                Assert::same($remainder, 0, \sprintf('Default value %s must be aligned with step %s starting from minimum %s', $default, $step, $min));
             }
         }
     }
@@ -72,10 +71,10 @@ final class NumberField implements Field
             name: new Name($data['name']),
             label: new Label($data['label']),
             disabled: $data['disabled'] ?? false,
-            min: $data['min'] ?? null,
-            max: $data['max'] ?? null,
-            step: $data['step'] ?? null,
-            default: $data['default'] ?? null,
+            min: isset($data['min']) ? (int) $data['min'] : null,
+            max: isset($data['max']) ? (int) $data['max'] : null,
+            step: isset($data['step']) ? (int) $data['step'] : null,
+            default: isset($data['default']) ? (int) $data['default'] : null,
             required: $data['required'] ?? false,
             placeholder: isset($data['placeholder']) ? new Placeholder($data['placeholder']) : null,
             help: isset($data['help']) ? new Help($data['help']) : null,
@@ -83,14 +82,14 @@ final class NumberField implements Field
     }
 
     /**
-     * @return NumberFieldArray
+     * @return IntegerFieldArray
      */
     public function toArray(): array
     {
         return [
             'name' => $this->name->toString(),
             'label' => $this->label->toString(),
-            'type' => FieldType::NUMBER->value,
+            'type' => FieldType::INTEGER->value,
             'required' => $this->required,
             'placeholder' => $this->placeholder?->toString(),
             'help' => $this->help?->toString(),
@@ -117,22 +116,22 @@ final class NumberField implements Field
         return $this->disabled;
     }
 
-    public function getMin(): ?float
+    public function getMin(): ?int
     {
         return $this->min;
     }
 
-    public function getMax(): ?float
+    public function getMax(): ?int
     {
         return $this->max;
     }
 
-    public function getStep(): ?float
+    public function getStep(): ?int
     {
         return $this->step;
     }
 
-    public function getDefault(): ?float
+    public function getDefault(): ?int
     {
         return $this->default;
     }
@@ -154,6 +153,6 @@ final class NumberField implements Field
 
     public function getType(): FieldType
     {
-        return FieldType::NUMBER;
+        return FieldType::INTEGER;
     }
 }
