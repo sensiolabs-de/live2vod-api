@@ -21,21 +21,21 @@ use Webmozart\Assert\Assert;
  *     placeholder: string|null,
  *     help: string|null,
  *     disabled: bool,
- *     options: array<string, string>,
- *     default: string|null
+ *     options: array<int|string, string>,
+ *     default: int|string|null
  * }
  */
 final class SelectField implements Field
 {
     /**
-     * @param array<string, string> $options
+     * @param array<int|string, string> $options
      */
     public function __construct(
         private Name $name,
         private Label $label,
         private array $options,
         private bool $disabled = false,
-        private ?string $default = null,
+        private null|int|string $default = null,
         private bool $required = false,
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
@@ -93,7 +93,7 @@ final class SelectField implements Field
     }
 
     /**
-     * @return array<string, string>
+     * @return array<int|string, string>
      */
     public function getOptions(): array
     {
@@ -105,7 +105,7 @@ final class SelectField implements Field
         return $this->disabled;
     }
 
-    public function getDefault(): ?string
+    public function getDefault(): null|int|string
     {
         return $this->default;
     }

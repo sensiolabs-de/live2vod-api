@@ -21,16 +21,16 @@ use Webmozart\Assert\Assert;
  *     placeholder: string|null,
  *     help: string|null,
  *     disabled: bool,
- *     options: array<string, string>,
+ *     options: array<int|string, string>,
  *     maxSelection: int|null,
- *     default: array<int, string>
+ *     default: array<int, int|string>
  * }
  */
 final class MultiSelectField implements Field
 {
     /**
-     * @param array<string, string> $options
-     * @param array<int, string>    $default
+     * @param array<int|string, string> $options
+     * @param array<int, int|string>    $default
      */
     public function __construct(
         private Name $name,
@@ -100,7 +100,7 @@ final class MultiSelectField implements Field
     }
 
     /**
-     * @return array<string, string>
+     * @return array<int|string, string>
      */
     public function getOptions(): array
     {
@@ -118,7 +118,7 @@ final class MultiSelectField implements Field
     }
 
     /**
-     * @return array<int, string>
+     * @return array<int, int|string>
      */
     public function getDefault(): array
     {
