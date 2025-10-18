@@ -13,6 +13,7 @@ final class ClipCreatedEvent implements WebhookEvent
     public readonly SessionId $sessionId;
     public readonly ClipId $clipId;
     public readonly int $position;
+    public readonly bool $last;
 
     /**
      * @var array<string, mixed>
@@ -27,6 +28,7 @@ final class ClipCreatedEvent implements WebhookEvent
         Assert::keyExists($data, 'sessionId');
         Assert::keyExists($data, 'clipId');
         Assert::keyExists($data, 'position');
+        Assert::keyExists($data, 'last');
         Assert::keyExists($data, 'formData');
 
         $this->sessionId = new SessionId($data['sessionId']);
@@ -34,6 +36,9 @@ final class ClipCreatedEvent implements WebhookEvent
 
         Assert::integer($data['position']);
         $this->position = $data['position'];
+
+        Assert::boolean($data['last']);
+        $this->last = $data['last'];
 
         Assert::isArray($data['formData']);
         $this->formData = $data['formData'];

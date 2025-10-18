@@ -19,6 +19,7 @@ final class ClipStatusCallbackPayload
         public ClipId $clipId,
         public Status $status,
         public int $position,
+        public bool $last,
         public ?FormData $formData = null,
         public ?Assets $assets = null,
     ) {

@@ -20,6 +20,7 @@ final class ClipErrorEventFactory extends ArrayFactory
             'clipId' => (string) new Ulid(),
             'status' => Status::ERROR->value,
             'position' => self::faker()->numberBetween(1, 10),
+            'last' => self::faker()->boolean(),
             'formData' => [
                 'title' => self::faker()->sentence(),
                 'description' => self::faker()->optional()->paragraph(),

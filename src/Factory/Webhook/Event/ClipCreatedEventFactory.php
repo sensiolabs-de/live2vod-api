@@ -18,6 +18,7 @@ final class ClipCreatedEventFactory extends ArrayFactory
             'sessionId' => (string) new Ulid(),
             'clipId' => (string) new Ulid(),
             'position' => self::faker()->numberBetween(1, 10),
+            'last' => self::faker()->boolean(),
             'formData' => [
                 'title' => self::faker()->sentence(),
                 'description' => self::faker()->optional()->paragraph(),
