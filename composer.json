@@ -8,6 +8,8 @@
         "oskarstark/enum-helper": "^1.8",
         "oskarstark/trimmed-non-empty-string": "^1.9",
         "psr/log": "^3.0",
+        "symfony/http-client": "^6.4 || ^7.0",
+        "symfony/http-foundation": "^6.4 || ^7.0",
         "symfony/http-kernel": "^6.4 || ^7.0",
         "symfony/uid": "^6.4 || ^7.0",
         "thecodingmachine/safe": "^3.0",
