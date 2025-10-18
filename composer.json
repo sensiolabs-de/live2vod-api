@@ -5,6 +5,7 @@
     "type": "library",
     "require": {
         "php": "^8.1.2",
+        "doctrine/dbal": "^3.0",
         "oskarstark/enum-helper": "^1.8",
         "oskarstark/trimmed-non-empty-string": "^1.9",
         "psr/log": "^3.0",
