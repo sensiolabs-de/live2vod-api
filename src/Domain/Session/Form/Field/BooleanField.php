@@ -16,7 +16,6 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Placeholder;
  *     name: string,
  *     label: string,
  *     type: string,
- *     required: bool,
  *     placeholder: string|null,
  *     help: string|null,
  *     disabled: bool,
@@ -30,7 +29,6 @@ final class BooleanField implements Field
         private Label $label,
         private bool $disabled = false,
         private bool $default = false,
-        private bool $required = false,
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
     ) {
@@ -46,7 +44,6 @@ final class BooleanField implements Field
             label: new Label($data['label']),
             disabled: $data['disabled'] ?? false,
             default: $data['default'] ?? false,
-            required: $data['required'] ?? false,
             placeholder: isset($data['placeholder']) ? new Placeholder($data['placeholder']) : null,
             help: isset($data['help']) ? new Help($data['help']) : null,
         );
@@ -61,7 +58,6 @@ final class BooleanField implements Field
             'name' => $this->name->toString(),
             'label' => $this->label->toString(),
             'type' => FieldType::BOOLEAN->value,
-            'required' => $this->required,
             'placeholder' => $this->placeholder?->toString(),
             'help' => $this->help?->toString(),
             'disabled' => $this->disabled,
@@ -91,7 +87,7 @@ final class BooleanField implements Field
 
     public function isRequired(): bool
     {
-        return $this->required;
+        return false;
     }
 
     public function getPlaceholder(): ?Placeholder
