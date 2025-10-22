@@ -21,4 +21,9 @@ enum Bitrate: int
     {
         return self::BITRATE_457600;
     }
+
+    public static function highest(): self
+    {
+        return self::BITRATE_6480000;
+    }
 }

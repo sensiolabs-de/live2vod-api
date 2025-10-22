@@ -168,6 +168,10 @@ final class Assets
      */
     public function getFileByBitrate(Bitrate $bitrate, ClipId $clipId): File
     {
+        if ([] === $this->files) {
+            throw FileNotFoundException::noFiles($clipId);
+        }
+
         foreach ($this->files as $file) {
             if ($file->getBitrate()->equals($bitrate)) {
                 return $file;
@@ -175,5 +179,45 @@ final class Assets
         }
 
         throw FileNotFoundException::forBitrate($bitrate, $clipId);
+    }
+
+    /**
+     * @throws FileNotFoundException
+     */
+    public function getHighestByBitrate(ClipId $clipId): File
+    {
+        if ([] === $this->files) {
+            throw FileNotFoundException::noFiles($clipId);
+        }
+
+        $highest = null;
+
+        foreach ($this->files as $file) {
+            if (null === $highest || $file->getBitrate()->value > $highest->getBitrate()->value) {
+                $highest = $file;
+            }
+        }
+
+        return $highest;
+    }
+
+    /**
+     * @throws FileNotFoundException
+     */
+    public function getLowestByBitrate(ClipId $clipId): File
+    {
+        if ([] === $this->files) {
+            throw FileNotFoundException::noFiles($clipId);
+        }
+
+        $lowest = null;
+
+        foreach ($this->files as $file) {
+            if (null === $lowest || $file->getBitrate()->value < $lowest->getBitrate()->value) {
+                $lowest = $file;
+            }
+        }
+
+        return $lowest;
     }
 }

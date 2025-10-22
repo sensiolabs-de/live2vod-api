@@ -14,4 +14,9 @@ final class FileNotFoundException extends NotFoundHttpException
     {
         return new self(\sprintf('MP4 file with bitrate "%d" not found for clip "%s"', $bitrate->value, $clipId->toString()));
     }
+
+    public static function noFiles(ClipId $clipId): self
+    {
+        return new self(\sprintf('No MP4 files found for clip "%s"', $clipId->toString()));
+    }
 }
