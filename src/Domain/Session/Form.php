@@ -30,6 +30,12 @@ final class Form
         foreach ($this->config->getButtons() as $button) {
             $this->getField($button->getField(), FieldType::BOOLEAN);
         }
+
+        foreach ($this->config->getValidations() as $validation) {
+            $this->getField($validation->getField());
+            $this->getField($validation->getCompareWith());
+            $this->getField($validation->getErrorPath());
+        }
     }
 
     /**
