@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api\Domain\Session\Form;
 
+use SensioLabs\Live2Vod\Api\Domain\Collection;
+
 /**
  * @phpstan-import-type ButtonArray from Button
  *
  * @phpstan-type ButtonsArray list<ButtonArray>
+ *
+ * @extends Collection<Button>
  */
-final class Buttons implements \Countable
+final class Buttons extends Collection
 {
     /**
-     * @param list<Button> $values
+     * @param list<Button> $items
      */
-    public function __construct(
-        private array $values = [],
-    ) {
-    }
-
-    /**
-     * @return list<Button>
-     */
-    public function getValues(): array
+    public function __construct(array $items = [])
     {
-        return $this->values;
+        parent::__construct($items);
     }
 
     /**
@@ -33,7 +29,7 @@ final class Buttons implements \Countable
     public static function fromArray(array $data): self
     {
         return new self(
-            values: array_map(
+            items: array_map(
                 static fn (array $button): Button => Button::fromArray($button),
                 $data,
             ),
@@ -47,12 +43,7 @@ final class Buttons implements \Countable
     {
         return array_map(
             static fn (Button $button): array => $button->toArray(),
-            $this->values,
+            $this->all(),
         );
-    }
-
-    public function count(): int
-    {
-        return \count($this->values);
     }
 }

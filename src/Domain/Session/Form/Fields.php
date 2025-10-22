@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api\Domain\Session\Form;
 
+use SensioLabs\Live2Vod\Api\Domain\Collection;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Exception\FieldNotFoundException;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Exception\FieldTypeMismatchException;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\BooleanField;
@@ -19,19 +20,17 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\TextareaField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\UrlField;
 use Webmozart\Assert\Assert;
 
-final class Fields
+/**
+ * @extends Collection<Field>
+ */
+final class Fields extends Collection
 {
-    /**
-     * @var array<int, Field>
-     */
-    private readonly array $fields;
-
     public function __construct(Field ...$field)
     {
-        $this->fields = array_values($field);
+        $items = array_values($field);
 
         // Validate unique field names
-        $names = array_map(static fn (Field $field) => $field->toArray()['name'], $this->fields);
+        $names = array_map(static fn (Field $field) => $field->toArray()['name'], $items);
         $duplicates = array_filter(array_count_values($names), static fn (int $count) => 1 < $count);
 
         Assert::isEmpty(
@@ -41,6 +40,8 @@ final class Fields
                 implode(', ', array_keys($duplicates)),
             ),
         );
+
+        parent::__construct($items);
     }
 
     /**
@@ -58,21 +59,20 @@ final class Fields
      */
     public function getAll(): array
     {
-        return $this->fields;
+        return $this->all();
     }
 
     /**
      * @param Name      $name Field name to search for
-     * @param FieldType $type When null, returns the field matching the name.
-     *                        When provided, validates that the field has the expected type
-     *                        and throws FieldTypeMismatchException if not.
+     * @param FieldType $type when provided, validates that the field has the expected type
+     *                        and throws FieldTypeMismatchException if not, if null, not
      *
      * @throws FieldNotFoundException     when field with given name is not found
      * @throws FieldTypeMismatchException when field exists but has different type than expected
      */
     public function getField(Name $name, ?FieldType $type = null): Field
     {
-        foreach ($this->fields as $field) {
+        foreach ($this as $field) {
             if ($field->getName()->equals($name)) {
                 if (null !== $type && !$field->getType()->equals($type)) {
                     throw FieldTypeMismatchException::forField($name, $type, $field->getType());

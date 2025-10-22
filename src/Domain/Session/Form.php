@@ -27,7 +27,7 @@ final class Form
             $this->getField($this->config->getClipTitleField(), FieldType::STRING);
         }
 
-        foreach ($this->config->getButtons()->getValues() as $button) {
+        foreach ($this->config->getButtons() as $button) {
             $this->getField($button->getField(), FieldType::BOOLEAN);
         }
     }
