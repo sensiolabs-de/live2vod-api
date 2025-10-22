@@ -15,6 +15,13 @@ final class Validation
         private Name $compareWith,
         private Name $errorPath,
     ) {
+        if ($field->equals($compareWith)) {
+            throw new \InvalidArgumentException('Field and compareWith cannot be the same');
+        }
+
+        if (!$errorPath->equals($field) && !$errorPath->equals($compareWith)) {
+            throw new \InvalidArgumentException('ErrorPath must be either field or compareWith');
+        }
     }
 
     public function getField(): Name
