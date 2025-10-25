@@ -10,16 +10,17 @@ namespace SensioLabs\Live2Vod\Api\Domain;
 final class DateTimeFormat
 {
     /**
-     * ISO 8601 / RFC 3339 format with UTC timezone (Z-suffix) and fixed milliseconds.
+     * ISO 8601 / RFC 3339 format with UTC timezone (Z-suffix) and milliseconds.
      *
-     * Format: 2025-10-18T14:30:00.000Z
+     * Format: 2025-10-18T14:30:00.123Z
      *
      * This format is used for:
      * - API responses (via Context attributes)
      * - Test assertions
      * - Any datetime string representation requiring UTC
      *
-     * Note: Milliseconds are always .000 since the database stores only seconds.
+     * The database stores timestamps with millisecond precision using TIMESTAMP(3).
+     * Microseconds are truncated to milliseconds for display (v = microseconds / 1000).
      */
-    public const UTC_WITH_MILLISECONDS = 'Y-m-d\TH:i:s.000\Z';
+    public const UTC_WITH_MILLISECONDS = 'Y-m-d\TH:i:s.v\Z';
 }
