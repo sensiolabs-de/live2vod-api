@@ -33,7 +33,6 @@ final class TokenGenerator implements TokenGeneratorInterface
         $beginRecFormatted = $beginRec->format('Ymd\THis');
         $endRecFormatted = $endRec->format('Ymd\THis');
 
-        // Build token fields
         $tokenFields = [
             \sprintf('exp=%d', $expiresAt->getTimestamp()),
             \sprintf('acl=%s', $acl),
@@ -45,17 +44,14 @@ final class TokenGenerator implements TokenGeneratorInterface
         // Build hash source (same as token fields for ACL-based tokens)
         $hashSource = implode('~', $tokenFields);
 
-        // Generate HMAC
         $binaryKey = hex2bin($this->sharedSecret);
 
-        // Add HMAC to token
         $tokenFields[] = \sprintf('hmac=%s', \hash_hmac(
             'sha256',
             $hashSource,
             $binaryKey,
         ));
 
-        // Join all fields
         return new Token(
             value: implode('~', $tokenFields),
             issuedAt: $issuedAt,
