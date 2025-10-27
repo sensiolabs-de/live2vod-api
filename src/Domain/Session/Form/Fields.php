@@ -80,7 +80,7 @@ final class Fields extends Collection
     /**
      * @return array<int, Field>
      */
-    public function getFieldsByType(FieldType $type): array
+    public function byType(FieldType $type): array
     {
         $fields = [];
 
