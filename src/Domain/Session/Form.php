@@ -60,12 +60,9 @@ final class Form
         ];
     }
 
-    /**
-     * @return array<int, Field>
-     */
-    public function getFields(): array
+    public function getFields(): Fields
     {
-        return $this->fields->getAll();
+        return $this->fields;
     }
 
     public function getConfig(): FormConfig
