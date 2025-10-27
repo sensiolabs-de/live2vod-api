@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Requirement\Requirement;
 final class Requirements
 {
     /**
-     * Regular expression pattern for matching ULID-based JPG filenames.
-     * Format: {ULID}.jpg
+     * Regular expression pattern for matching ULID-based image filenames.
+     * Format: {ULID}.(jpg|jpeg|png|webp)
      * Reuses Symfony's UID_BASE32 pattern for ULID validation.
      */
-    public const FILENAME_REGEX = Requirement::UID_BASE32.'\.jpg';
+    public const FILENAME_REGEX = Requirement::UID_BASE32.'\.(jpg|jpeg|png|webp)';
 
     /**
      * ISO 8601 datetime format regex pattern.
