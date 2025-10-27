@@ -56,7 +56,7 @@ final class Form
     {
         return [
             'config' => $this->config->toArray(),
-            'fields' => array_map(static fn (Field $field) => $field->toArray(), $this->fields->getAll()),
+            'fields' => array_map(static fn (Field $field) => $field->toArray(), $this->fields->all()),
         ];
     }
 

@@ -55,14 +55,6 @@ final class Fields extends Collection
     }
 
     /**
-     * @return array<int, Field>
-     */
-    public function getAll(): array
-    {
-        return $this->all();
-    }
-
-    /**
      * @param Name      $name Field name to search for
      * @param FieldType $type when provided, validates that the field has the expected type
      *                        and throws FieldTypeMismatchException if not, if null, not
