@@ -6,7 +6,11 @@ namespace SensioLabs\Live2Vod\Api\Domain\Clip;
 
 use Webmozart\Assert\Assert;
 
-final class FormData
+/**
+ * @implements \ArrayAccess<string, mixed>
+ * @implements \Iterator<string, mixed>
+ */
+final class FormData implements \ArrayAccess, \Countable, \Iterator
 {
     /**
      * @param array<string, mixed> $values
@@ -48,5 +52,72 @@ final class FormData
     public function isEmpty(): bool
     {
         return [] === $this->values;
+    }
+
+    // Iterator implementation
+    public function current(): mixed
+    {
+        return current($this->values);
+    }
+
+    public function key(): string
+    {
+        $key = key($this->values);
+
+        if (null === $key) {
+            return '';
+        }
+
+        return $key;
+    }
+
+    public function next(): void
+    {
+        next($this->values);
+    }
+
+    public function rewind(): void
+    {
+        reset($this->values);
+    }
+
+    public function valid(): bool
+    {
+        return null !== key($this->values);
+    }
+
+    // ArrayAccess implementation
+    public function offsetExists(mixed $offset): bool
+    {
+        Assert::string($offset, 'Form data keys must be strings');
+
+        return \array_key_exists($offset, $this->values);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        Assert::string($offset, 'Form data keys must be strings');
+
+        return $this->values[$offset] ?? null;
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        Assert::string($offset, 'Form data keys must be strings');
+
+        $this->values[$offset] = $value;
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        Assert::string($offset, 'Form data keys must be strings');
+
+        unset($this->values[$offset]);
+    }
+
+    // Countable implementation
+    public function count(): int
+    {
+        return \count($this->values);
     }
 }
