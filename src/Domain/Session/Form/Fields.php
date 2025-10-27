@@ -86,6 +86,22 @@ final class Fields extends Collection
     }
 
     /**
+     * @return array<int, Field>
+     */
+    public function getFieldsByType(FieldType $type): array
+    {
+        $fields = [];
+
+        foreach ($this as $field) {
+            if ($field->getType()->equals($type)) {
+                $fields[] = $field;
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
      * @param array<string, mixed> $data
      */
     private static function createFieldFromArray(array $data): Field
