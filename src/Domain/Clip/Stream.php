@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api\Domain\Clip;
 
+use SensioLabs\Live2Vod\Api\Domain\DRM\Token;
 use SensioLabs\Live2Vod\Api\Domain\Url;
 use Webmozart\Assert\Assert;
 
@@ -52,6 +53,22 @@ final class Stream
         return new self(
             type: StreamType::from($data['type']),
             url: new Url($data['url']),
+        );
+    }
+
+    /**
+     * Returns a new Stream instance with the token appended to the URL as a query parameter.
+     * The token is appended as "tk_ors=<url_encoded_token>".
+     */
+    public function withToken(Token $token): self
+    {
+        $urlString = $this->url->toString();
+        $separator = str_contains($urlString, '?') ? '&' : '?';
+        $tokenParam = 'tk_ors='.urlencode($token->toBase64());
+
+        return new self(
+            type: $this->type,
+            url: new Url($urlString.$separator.$tokenParam),
         );
     }
 }

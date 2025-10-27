@@ -7,6 +7,7 @@ namespace SensioLabs\Live2Vod\Api\Domain\Clip;
 use SensioLabs\Live2Vod\Api\Domain\Clip\Exception\FileNotFoundException;
 use SensioLabs\Live2Vod\Api\Domain\Clip\File\Bitrate;
 use SensioLabs\Live2Vod\Api\Domain\Clip\File\FileType;
+use SensioLabs\Live2Vod\Api\Domain\DRM\Token;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\ClipId;
 use SensioLabs\Live2Vod\Api\Domain\Url;
 
@@ -219,5 +220,23 @@ final class Assets
         }
 
         return $lowest;
+    }
+
+    /**
+     * Returns a new Assets instance with the token appended to all stream URLs.
+     * Files and thumbnail remain unchanged.
+     */
+    public function withToken(Token $token): self
+    {
+        $streamsWithToken = array_map(
+            static fn (Stream $stream): Stream => $stream->withToken($token),
+            $this->streams,
+        );
+
+        return new self(
+            streams: $streamsWithToken,
+            files: $this->files,
+            thumbnail: $this->thumbnail,
+        );
     }
 }
