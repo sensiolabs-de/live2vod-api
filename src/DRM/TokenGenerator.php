@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api\DRM;
 
+use SensioLabs\Live2Vod\Api\Domain\DRM\Acl;
 use SensioLabs\Live2Vod\Api\Domain\DRM\GeoLocation;
 use SensioLabs\Live2Vod\Api\Domain\DRM\Token;
 use Safe\DateTimeImmutable;
@@ -20,7 +21,7 @@ final class TokenGenerator implements TokenGeneratorInterface
     }
 
     public function generate(
-        string $acl,
+        Acl $acl,
         GeoLocation $geoLocation,
         \DateTimeInterface $beginRec,
         \DateTimeInterface $endRec,
@@ -35,7 +36,7 @@ final class TokenGenerator implements TokenGeneratorInterface
 
         $tokenFields = [
             \sprintf('exp=%d', $expiresAt->getTimestamp()),
-            \sprintf('acl=%s', $acl),
+            \sprintf('acl=%s', $acl->toString()),
             \sprintf('geo_loc=%s', $geoLocation->value),
             \sprintf('begin_rec=%s', $beginRecFormatted),
             \sprintf('end_rec=%s', $endRecFormatted),

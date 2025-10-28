@@ -82,32 +82,16 @@ final class AssetsFactory extends ObjectFactory
                 url: new Url(\sprintf('%s/videos/%s/index.m3u8', $baseUrl, $videoId)),
             ),
             new Stream(
-                type: StreamType::HLS_247,
-                url: new Url(\sprintf('%s/videos/%s/index_247.m3u8', $baseUrl, $videoId)),
-            ),
-            new Stream(
                 type: StreamType::HLS_DRM,
                 url: new Url(\sprintf('%s/videos/%s/index_drm.m3u8', $baseUrl, $videoId)),
-            ),
-            new Stream(
-                type: StreamType::HLS_DRM_247,
-                url: new Url(\sprintf('%s/videos/%s/index_drm_247.m3u8', $baseUrl, $videoId)),
             ),
             new Stream(
                 type: StreamType::DASH,
                 url: new Url(\sprintf('%s/videos/%s/manifest.mpd', $baseUrl, $videoId)),
             ),
             new Stream(
-                type: StreamType::DASH_247,
-                url: new Url(\sprintf('%s/videos/%s/manifest_247.mpd', $baseUrl, $videoId)),
-            ),
-            new Stream(
                 type: StreamType::DASH_DRM,
                 url: new Url(\sprintf('%s/videos/%s/manifest_drm.mpd', $baseUrl, $videoId)),
-            ),
-            new Stream(
-                type: StreamType::DASH_DRM_247,
-                url: new Url(\sprintf('%s/videos/%s/manifest_drm_247.mpd', $baseUrl, $videoId)),
             ),
         ];
 
