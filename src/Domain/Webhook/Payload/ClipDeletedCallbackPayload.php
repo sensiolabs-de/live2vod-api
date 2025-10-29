@@ -14,8 +14,6 @@ final class ClipDeletedCallbackPayload
         public SessionId $sessionId,
         public Event $event,
         public ClipId $clipId,
-        public int $position,
-        public bool $last,
     ) {
     }
 }

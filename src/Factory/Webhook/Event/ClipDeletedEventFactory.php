@@ -17,8 +17,6 @@ final class ClipDeletedEventFactory extends ArrayFactory
         return [
             'sessionId' => (string) new Ulid(),
             'clipId' => (string) new Ulid(),
-            'position' => self::faker()->numberBetween(1, 10),
-            'last' => self::faker()->boolean(),
         ];
     }
 }
