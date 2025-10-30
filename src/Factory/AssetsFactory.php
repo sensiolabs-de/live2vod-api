@@ -40,7 +40,6 @@ final class AssetsFactory extends ObjectFactory
     protected function defaults(): array
     {
         $videoId = self::faker()->uuid();
-        $clipId = self::faker()->uuid();
         $baseUrl = self::faker()->url();
 
         $files = [
