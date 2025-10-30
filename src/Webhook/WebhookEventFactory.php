@@ -6,6 +6,7 @@ namespace SensioLabs\Live2Vod\Api\Webhook;
 
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Event;
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipCompletedEvent;
+use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipCreatedEvent;
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipDeletedEvent;
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipErrorEvent;
 use SensioLabs\Live2Vod\Api\Domain\Webhook\Event\ClipsCompletedEvent;
@@ -23,6 +24,7 @@ final class WebhookEventFactory implements WebhookEventFactoryInterface
     {
         return match ($event) {
             Event::CLIP_COMPLETED => new ClipCompletedEvent($data),
+            Event::CLIP_CREATED => new ClipCreatedEvent($data),
             Event::CLIP_DELETED => new ClipDeletedEvent($data),
             Event::CLIP_ERROR => new ClipErrorEvent($data),
             Event::CLIP_UPDATED => new ClipUpdatedEvent($data),
