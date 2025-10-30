@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SensioLabs\Live2Vod\Api\Domain\Clip;
 
 use SensioLabs\Live2Vod\Api\Domain\Clip\Exception\FileNotFoundException;
+use SensioLabs\Live2Vod\Api\Domain\Clip\Exception\StreamNotFoundException;
 use SensioLabs\Live2Vod\Api\Domain\Clip\File\Bitrate;
 use SensioLabs\Live2Vod\Api\Domain\Clip\File\FileType;
 use SensioLabs\Live2Vod\Api\Domain\DRM\Token;
@@ -238,5 +239,23 @@ final class Assets
             files: $this->files,
             thumbnail: $this->thumbnail,
         );
+    }
+
+    /**
+     * @throws StreamNotFoundException
+     */
+    public function getStreamByType(StreamType $type, ClipId $clipId): Stream
+    {
+        if ([] === $this->streams) {
+            throw StreamNotFoundException::noStreams($clipId);
+        }
+
+        foreach ($this->streams as $stream) {
+            if ($stream->getType()->equals($type)) {
+                return $stream;
+            }
+        }
+
+        throw StreamNotFoundException::forType($type, $clipId);
     }
 }
