@@ -63,7 +63,7 @@ final class Clip
     public function toArray(): array
     {
         return [
-            'clipId' => $this->clipId->toString(),
+            'clipId' => (string) $this->clipId,
             'status' => $this->status->value,
             'position' => $this->position,
             'formData' => $this->formData,
