@@ -90,15 +90,9 @@ final class Assets
      */
     public function toArray(): array
     {
-        $files = [];
-
-        foreach ($this->files as $file) {
-            $files[] = $file->toArray();
-        }
-
         return [
             'streams' => array_map(static fn (Stream $stream) => $stream->toArray(), $this->streams),
-            'files' => $files,
+            'files' => array_map(static fn (File $file) => $file->toArray(), $this->files),
             'thumbnail' => $this->thumbnail?->toString(),
         ];
     }
