@@ -6,6 +6,7 @@ namespace SensioLabs\Live2Vod\Api\Domain\Webhook\Event;
 
 use SensioLabs\Live2Vod\Api\Domain\Identifier\ClipId;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
+use Safe\DateTimeImmutable;
 use Webmozart\Assert\Assert;
 
 final class ClipCreatedEvent implements WebhookEvent
@@ -14,6 +15,8 @@ final class ClipCreatedEvent implements WebhookEvent
     public readonly ClipId $clipId;
     public readonly int $position;
     public readonly bool $last;
+    public readonly DateTimeImmutable $markIn;
+    public readonly DateTimeImmutable $markOut;
 
     /**
      * @var array<string, mixed>
@@ -29,6 +32,8 @@ final class ClipCreatedEvent implements WebhookEvent
         Assert::keyExists($data, 'clipId');
         Assert::keyExists($data, 'position');
         Assert::keyExists($data, 'last');
+        Assert::keyExists($data, 'markIn');
+        Assert::keyExists($data, 'markOut');
         Assert::keyExists($data, 'formData');
 
         $this->sessionId = new SessionId($data['sessionId']);
@@ -39,6 +44,12 @@ final class ClipCreatedEvent implements WebhookEvent
 
         Assert::boolean($data['last']);
         $this->last = $data['last'];
+
+        Assert::string($data['markIn']);
+        $this->markIn = new DateTimeImmutable($data['markIn']);
+
+        Assert::string($data['markOut']);
+        $this->markOut = new DateTimeImmutable($data['markOut']);
 
         Assert::isArray($data['formData']);
         $this->formData = $data['formData'];
