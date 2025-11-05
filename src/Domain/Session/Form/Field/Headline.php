@@ -10,13 +10,13 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Label;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Name;
 
 /**
- * @phpstan-type HeadlineFieldArray array{
+ * @phpstan-type HeadlineArray array{
  *     name: string,
  *     label: string,
  *     type: string
  * }
  */
-final class HeadlineField implements Field
+final class Headline implements Field
 {
     public function __construct(
         private Name $name,
@@ -36,7 +36,7 @@ final class HeadlineField implements Field
     }
 
     /**
-     * @return HeadlineFieldArray
+     * @return HeadlineArray
      */
     public function toArray(): array
     {
