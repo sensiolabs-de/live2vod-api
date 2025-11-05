@@ -21,4 +21,5 @@ enum FieldType: string
     case DATETIME = 'datetime';
     case IMAGE = 'image';
     case URL = 'url';
+    case HEADLINE = 'headline';
 }

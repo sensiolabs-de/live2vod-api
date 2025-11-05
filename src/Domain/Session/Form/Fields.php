@@ -11,6 +11,7 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\BooleanField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\DateField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\DateTimeField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\FloatField;
+use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\HeadlineField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\ImageField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\IntegerField;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field\MultiSelectField;
@@ -114,6 +115,7 @@ final class Fields extends Collection
             FieldType::DATETIME => DateTimeField::fromArray($data),
             FieldType::IMAGE => ImageField::fromArray($data),
             FieldType::URL => UrlField::fromArray($data),
+            FieldType::HEADLINE => HeadlineField::fromArray($data),
         };
     }
 }
