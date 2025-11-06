@@ -64,7 +64,7 @@ final class Stream
     {
         $urlString = $this->url->toString();
         $separator = str_contains($urlString, '?') ? '&' : '?';
-        $tokenParam = 'tk_ors='.urlencode($token->toBase64());
+        $tokenParam = 'tk_ors='.$token->toUrlEncoded();
 
         return new self(
             type: $this->type,

@@ -58,8 +58,8 @@ final class Token
         return $at > $this->expiresAt;
     }
 
-    public function toBase64(): string
+    public function toUrlEncoded(): string
     {
-        return base64_encode($this->value);
+        return urlencode($this->value);
     }
 }
