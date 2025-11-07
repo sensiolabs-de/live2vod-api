@@ -154,6 +154,9 @@ final class Assets
         );
     }
 
+    /**
+     * @phpstan-assert-if-true !null $this->thumbnail
+     */
     public function hasThumbnail(): bool
     {
         return null !== $this->thumbnail;
