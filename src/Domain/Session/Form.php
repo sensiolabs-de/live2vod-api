@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SensioLabs\Live2Vod\Api\Domain\Session;
 
+use SensioLabs\Live2Vod\Api\Domain\Clip\FormData;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Exception\FieldNotFoundException;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Exception\FieldTypeMismatchException;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Field;
@@ -82,5 +83,26 @@ final class Form
     public function getField(Name $name, ?FieldType $type = null): Field
     {
         return $this->fields->getField($name, $type);
+    }
+
+    /**
+     * Extract values from FormData for fields of a specific type.
+     *
+     * @return array<string> Array of non-empty string values for the given field type
+     */
+    public function getValuesForFieldType(FormData $formData, FieldType $fieldType): array
+    {
+        $values = [];
+
+        foreach ($this->fields->byType($fieldType) as $field) {
+            $fieldName = $field->getName()->toString();
+            $value = $formData->get($fieldName);
+
+            if (\is_string($value) && '' !== $value) {
+                $values[] = $value;
+            }
+        }
+
+        return $values;
     }
 }
