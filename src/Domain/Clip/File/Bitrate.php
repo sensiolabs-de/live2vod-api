@@ -10,20 +10,19 @@ enum Bitrate: int
 {
     use Comparable;
 
-    case BITRATE_457600 = 457600;
-    case BITRATE_982400 = 982400;
-    case BITRATE_1927600 = 1927600;
-    case BITRATE_3120000 = 3120000;
-    case BITRATE_3960000 = 3960000;
-    case BITRATE_6480000 = 6480000;
+    case BITRATE_496400 = 496400;
+    case BITRATE_789600 = 789600;
+    case BITRATE_1639600 = 1639600;
+    case BITRATE_3020800 = 3020800;
+    case BITRATE_5299600 = 5299600;
 
     public static function lowest(): self
     {
-        return self::BITRATE_457600;
+        return self::BITRATE_496400;
     }
 
     public static function highest(): self
     {
-        return self::BITRATE_6480000;
+        return self::BITRATE_5299600;
     }
 }

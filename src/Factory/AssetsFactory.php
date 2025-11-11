@@ -44,34 +44,29 @@ final class AssetsFactory extends ObjectFactory
 
         $files = [
             new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_457600.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_457600,
-                url: new Url(\sprintf('%s/videos/%s/video_457600.mp4', $baseUrl, $videoId)),
+                filepath: new Filepath(\sprintf('videos/%s/video_496400.mp4', $videoId)),
+                bitrate: Bitrate::BITRATE_496400,
+                url: new Url(\sprintf('%s/videos/%s/video_496400.mp4', $baseUrl, $videoId)),
             ),
             new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_982400.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_982400,
-                url: new Url(\sprintf('%s/videos/%s/video_982400.mp4', $baseUrl, $videoId)),
+                filepath: new Filepath(\sprintf('videos/%s/video_789600.mp4', $videoId)),
+                bitrate: Bitrate::BITRATE_789600,
+                url: new Url(\sprintf('%s/videos/%s/video_789600.mp4', $baseUrl, $videoId)),
             ),
             new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_1927600.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_1927600,
-                url: new Url(\sprintf('%s/videos/%s/video_1927600.mp4', $baseUrl, $videoId)),
+                filepath: new Filepath(\sprintf('videos/%s/video_1639600.mp4', $videoId)),
+                bitrate: Bitrate::BITRATE_1639600,
+                url: new Url(\sprintf('%s/videos/%s/video_1639600.mp4', $baseUrl, $videoId)),
             ),
             new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_3120000.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_3120000,
-                url: new Url(\sprintf('%s/videos/%s/video_3120000.mp4', $baseUrl, $videoId)),
+                filepath: new Filepath(\sprintf('videos/%s/video_3020800.mp4', $videoId)),
+                bitrate: Bitrate::BITRATE_3020800,
+                url: new Url(\sprintf('%s/videos/%s/video_3020800.mp4', $baseUrl, $videoId)),
             ),
             new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_3960000.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_3960000,
-                url: new Url(\sprintf('%s/videos/%s/video_3960000.mp4', $baseUrl, $videoId)),
-            ),
-            new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_6480000.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_6480000,
-                url: new Url(\sprintf('%s/videos/%s/video_6480000.mp4', $baseUrl, $videoId)),
+                filepath: new Filepath(\sprintf('videos/%s/video_5299600.mp4', $videoId)),
+                bitrate: Bitrate::BITRATE_5299600,
+                url: new Url(\sprintf('%s/videos/%s/video_5299600.mp4', $baseUrl, $videoId)),
             ),
         ];
 
