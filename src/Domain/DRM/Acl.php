@@ -30,6 +30,6 @@ final class Acl implements \Stringable
 
     public function toString(): string
     {
-        return \sprintf('/orf/%s/%s*', $this->channel->value, $this->drm ? 'drmqxa-l2v' : 'qxa-l2v');
+        return \sprintf('/orf/%s/%s*', $this->channel->toAclString(), $this->drm ? 'drmqxa-l2v' : 'qxa-l2v');
     }
 }

@@ -21,4 +21,12 @@ enum Channel: string
             self::ORFKIDS => 'ORF Kids',
         };
     }
+
+    public function toAclString(): string
+    {
+        return match ($this) {
+            self::ORFKIDS => 'orfk',
+            default => $this->value,
+        };
+    }
 }
