@@ -19,7 +19,7 @@ final class ClipApiTest extends TestCase
     {
         $clipId = new ClipId('01JAXRHM7JZSP4Y4PXSACN8CPT');
 
-        $response = $this->createMock(ResponseInterface::class);
+        $response = self::createStub(ResponseInterface::class);
 
         $client = $this->createMock(ClientInterface::class);
         $client
