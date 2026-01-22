@@ -12,7 +12,7 @@ use Zenstruck\Foundry\ObjectFactory;
 /**
  * @extends ObjectFactory<Config>
  */
-final class SessionConfigFactory extends ObjectFactory
+final class ConfigFactory extends ObjectFactory
 {
     /**
      * @return class-string<Config>

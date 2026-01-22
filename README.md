@@ -166,7 +166,7 @@ Factory for creating webhook event objects from payloads.
 
 - `AssetsFactory` - Creates clip assets from API responses
 - `CreateSessionRequestFactory` - Creates session requests
-- `SessionConfigFactory` - Creates session configurations
+- `ConfigFactory` - Creates session configurations
 - `TokenFactory` - Creates DRM tokens
 - `Webhook\WebhookEventFactory` - Creates webhook events
 
