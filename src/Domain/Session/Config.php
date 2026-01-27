@@ -17,7 +17,8 @@ use Webmozart\Assert\Assert;
  *     endTime: ?string,
  *     maxClips: ?int,
  *     title: ?string,
- *     cmsUrl: ?string
+ *     cmsUrl: ?string,
+ *     redSysUpload: bool
  * }
  */
 final class Config implements \JsonSerializable
@@ -31,6 +32,7 @@ final class Config implements \JsonSerializable
         public readonly ?int $maxClips = null,
         public readonly ?Title $title = null,
         public readonly ?Url $cmsUrl = null,
+        public readonly bool $redSysUpload = false,
     ) {
         $this->channel = null !== $channel ? TrimmedNonEmptyString::fromString($channel)->toString() : null;
 
@@ -56,6 +58,7 @@ final class Config implements \JsonSerializable
             'maxClips' => $this->maxClips,
             'title' => $this->title?->toString(),
             'cmsUrl' => $this->cmsUrl?->toString(),
+            'redSysUpload' => $this->redSysUpload,
         ];
     }
 
@@ -66,7 +69,8 @@ final class Config implements \JsonSerializable
      *     endTime?: ?string,
      *     maxClips?: ?int,
      *     title?: ?string,
-     *     cmsUrl?: ?string
+     *     cmsUrl?: ?string,
+     *     redSysUpload?: bool
      * } $data
      */
     public static function fromArray(array $data): self
@@ -78,6 +82,7 @@ final class Config implements \JsonSerializable
             maxClips: $data['maxClips'] ?? null,
             title: isset($data['title']) ? new Title($data['title']) : null,
             cmsUrl: isset($data['cmsUrl']) ? new Url($data['cmsUrl']) : null,
+            redSysUpload: $data['redSysUpload'] ?? false,
         );
     }
 
@@ -87,5 +92,10 @@ final class Config implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return $this->toArray();
+    }
+
+    public function isRedSysUploadEnabled(): bool
+    {
+        return $this->redSysUpload;
     }
 }

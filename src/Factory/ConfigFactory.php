@@ -31,6 +31,7 @@ final class ConfigFactory extends ObjectFactory
             'maxClips' => null,
             'title' => null,
             'cmsUrl' => null,
+            'redSysUpload' => false,
         ]);
     }
 
@@ -71,6 +72,7 @@ final class ConfigFactory extends ObjectFactory
             'maxClips' => self::faker()->numberBetween(1, 20),
             'title' => self::faker()->sentence(3),
             'cmsUrl' => self::faker()->url(),
+            'redSysUpload' => false,
         ];
     }
 }
