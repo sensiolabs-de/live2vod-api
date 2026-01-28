@@ -48,6 +48,10 @@ final class ConfigFactory extends ObjectFactory
                     $attributes['endTime'] = $attributes['endTime']->format(\DateTimeInterface::ATOM);
                 }
 
+                if (isset($attributes['redSysUpload']) && true === $attributes['redSysUpload']) {
+                    $attributes['maxClips'] = null;
+                }
+
                 return Config::fromArray($attributes);
             });
     }
