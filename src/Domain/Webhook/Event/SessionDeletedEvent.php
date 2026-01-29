@@ -9,7 +9,7 @@ use Webmozart\Assert\Assert;
 
 final class SessionDeletedEvent implements WebhookEvent
 {
-    public readonly SessionId $sessionId;
+    public SessionId $sessionId;
 
     /**
      * @param array<string, mixed> $data

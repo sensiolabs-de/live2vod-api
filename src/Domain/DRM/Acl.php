@@ -18,8 +18,8 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Channel;
 final class Acl implements \Stringable
 {
     public function __construct(
-        public readonly Channel $channel,
-        public readonly bool $drm,
+        public Channel $channel,
+        public bool $drm,
     ) {
     }
 

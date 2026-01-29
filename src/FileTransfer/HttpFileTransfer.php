@@ -27,8 +27,8 @@ final class HttpFileTransfer implements FileTransferInterface
     private const TEMP_FILE_EXTENSION = '.temp';
 
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
-        private readonly LoggerInterface $logger,
+        private HttpClientInterface $httpClient,
+        private LoggerInterface $logger,
     ) {
     }
 

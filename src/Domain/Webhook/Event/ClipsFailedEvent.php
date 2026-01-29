@@ -9,17 +9,17 @@ use Webmozart\Assert\Assert;
 
 final class ClipsFailedEvent implements WebhookEvent
 {
-    public readonly SessionId $sessionId;
+    public SessionId $sessionId;
 
     /**
      * @var array<string, null|bool|float|int|string>
      */
-    public readonly array $metadata;
+    public array $metadata;
 
     /**
      * @var array<mixed>
      */
-    public readonly array $clips;
+    public array $clips;
 
     /**
      * @param array<string, mixed> $data
