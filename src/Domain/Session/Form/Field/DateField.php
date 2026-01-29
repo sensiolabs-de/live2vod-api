@@ -39,12 +39,12 @@ final class DateField implements Field
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
     ) {
-        if (null !== $this->default && null !== $this->minDate && null !== $this->maxDate) {
+        if (!\in_array(null, [$this->default, $this->minDate, $this->maxDate], true)) {
             $defaultDate = \DateTimeImmutable::createFromFormat('!Y-m-d', $this->default);
             $min = \DateTimeImmutable::createFromFormat('!Y-m-d', $this->minDate);
             $max = \DateTimeImmutable::createFromFormat('!Y-m-d', $this->maxDate);
 
-            if (false !== $defaultDate && false !== $min && false !== $max) {
+            if (!\in_array(false, [$defaultDate, $min, $max], true)) {
                 Assert::true(
                     $defaultDate >= $min && $defaultDate <= $max,
                     \sprintf(

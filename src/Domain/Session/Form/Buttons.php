@@ -30,7 +30,7 @@ final class Buttons extends Collection
     {
         return new self(
             items: array_map(
-                static fn (array $button): Button => Button::fromArray($button),
+                Button::fromArray(...),
                 $data,
             ),
         );

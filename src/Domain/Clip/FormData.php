@@ -18,7 +18,7 @@ final class FormData implements \ArrayAccess, \Countable, \Iterator
     public function __construct(
         private array $values,
     ) {
-        foreach ($values as $key => $value) {
+        foreach (array_keys($values) as $key) {
             Assert::string($key, 'Form data keys must be strings');
         }
     }

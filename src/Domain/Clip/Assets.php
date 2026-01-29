@@ -159,7 +159,7 @@ final class Assets
      */
     public function hasThumbnail(): bool
     {
-        return null !== $this->thumbnail;
+        return $this->thumbnail instanceof Thumbnail;
     }
 
     /**

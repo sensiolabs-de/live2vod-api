@@ -45,10 +45,8 @@ final class MultiSelectField implements Field
     ) {
         Assert::notEmpty($options, 'Options must not be empty');
 
-        if ([] !== $default) {
-            foreach ($default as $defaultValue) {
-                Assert::keyExists($options, $defaultValue, \sprintf('Default value "%s" must be part of the options', $defaultValue));
-            }
+        foreach ($default as $defaultValue) {
+            Assert::keyExists($options, $defaultValue, \sprintf('Default value "%s" must be part of the options', $defaultValue));
         }
     }
 

@@ -24,7 +24,7 @@ final class Form
         private Fields $fields = new Fields(),
         private FormConfig $config = new FormConfig(),
     ) {
-        if (null !== $this->config->getClipTitleField()) {
+        if ($this->config->getClipTitleField() instanceof Name) {
             $this->getField($this->config->getClipTitleField(), FieldType::STRING);
         }
 

@@ -50,7 +50,7 @@ final class Fields extends Collection
      */
     public static function fromArray(array $data): self
     {
-        $fields = array_map(static fn (array $fieldData) => self::createFieldFromArray($fieldData), $data);
+        $fields = array_map(self::createFieldFromArray(...), $data);
 
         return new self(...$fields);
     }
@@ -67,7 +67,7 @@ final class Fields extends Collection
     {
         foreach ($this as $field) {
             if ($field->getName()->equals($name)) {
-                if (null !== $type && !$field->getType()->equals($type)) {
+                if ($type instanceof FieldType && !$field->getType()->equals($type)) {
                     throw FieldTypeMismatchException::forField($name, $type, $field->getType());
                 }
 

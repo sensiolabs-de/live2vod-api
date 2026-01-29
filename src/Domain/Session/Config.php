@@ -40,7 +40,7 @@ final class Config implements \JsonSerializable
             Assert::greaterThan($maxClips, 0, 'Max clips must be at least 1');
         }
 
-        if (null !== $endTime) {
+        if ($endTime instanceof \DateTimeImmutable) {
             Assert::notNull($startTime, 'End time can only be specified with start time');
             Assert::greaterThan($endTime, $startTime, 'End time must be after start time');
         }

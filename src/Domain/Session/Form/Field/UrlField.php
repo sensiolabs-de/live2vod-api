@@ -52,7 +52,7 @@ final class UrlField implements Field
         if (null !== $this->default) {
             try {
                 $parsedUrl = parse_url($this->default);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 throw new \InvalidArgumentException(\sprintf('Invalid URL format: "%s"', $this->default));
             }
 

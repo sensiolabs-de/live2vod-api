@@ -30,7 +30,7 @@ final class Actions extends Collection
     {
         return new self(
             items: array_map(
-                static fn (array $action): Action => Action::fromArray($action),
+                Action::fromArray(...),
                 $data,
             ),
         );

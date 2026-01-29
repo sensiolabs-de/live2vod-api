@@ -30,7 +30,7 @@ final class Validations extends Collection
     {
         return new self(
             items: array_map(
-                static fn (array $validation): Validation => Validation::fromArray($validation),
+                Validation::fromArray(...),
                 $data,
             ),
         );

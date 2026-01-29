@@ -21,7 +21,7 @@ final class File
         private Url $url,
         ?FileType $type = null,
     ) {
-        if (null === $type) {
+        if (!$type instanceof FileType) {
             $extension = pathinfo($filepath->toString(), \PATHINFO_EXTENSION);
 
             $this->type = match (strtolower($extension)) {
