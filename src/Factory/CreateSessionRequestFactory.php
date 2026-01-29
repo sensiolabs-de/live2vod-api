@@ -26,14 +26,12 @@ final class CreateSessionRequestFactory extends ObjectFactory
     protected function initialize(): static
     {
         return $this
-            ->instantiateWith(static function (array $attributes): CreateSessionRequest {
-                return new CreateSessionRequest(
-                    callbackUrl: $attributes['callbackUrl'],
-                    form: $attributes['form'] ?? new Form(),
-                    config: $attributes['config'] ?? new Config(),
-                    metadata: $attributes['metadata'] ?? [],
-                );
-            });
+            ->instantiateWith(static fn (array $attributes): CreateSessionRequest => new CreateSessionRequest(
+                callbackUrl: $attributes['callbackUrl'],
+                form: $attributes['form'] ?? new Form(),
+                config: $attributes['config'] ?? new Config(),
+                metadata: $attributes['metadata'] ?? [],
+            ));
     }
 
     /**

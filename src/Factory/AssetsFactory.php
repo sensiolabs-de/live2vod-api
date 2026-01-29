@@ -99,12 +99,10 @@ final class AssetsFactory extends ObjectFactory
 
     protected function initialize(): static
     {
-        return $this->instantiateWith(static function (array $attributes): Assets {
-            return new Assets(
-                streams: $attributes['streams'] ?? [],
-                files: $attributes['files'] ?? [],
-                thumbnail: $attributes['thumbnail'] ?? null,
-            );
-        });
+        return $this->instantiateWith(static fn (array $attributes): Assets => new Assets(
+            streams: $attributes['streams'] ?? [],
+            files: $attributes['files'] ?? [],
+            thumbnail: $attributes['thumbnail'] ?? null,
+        ));
     }
 }

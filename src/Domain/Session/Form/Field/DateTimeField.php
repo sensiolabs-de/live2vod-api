@@ -39,12 +39,12 @@ final class DateTimeField implements Field
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
     ) {
-        if (null !== $this->default && null !== $this->minDateTime && null !== $this->maxDateTime) {
+        if (!\in_array(null, [$this->default, $this->minDateTime, $this->maxDateTime], true)) {
             $defaultDateTime = \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $this->default);
             $min = \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $this->minDateTime);
             $max = \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $this->maxDateTime);
 
-            if (false !== $defaultDateTime && false !== $min && false !== $max) {
+            if (!\in_array(false, [$defaultDateTime, $min, $max], true)) {
                 Assert::true(
                     $defaultDateTime >= $min && $defaultDateTime <= $max,
                     \sprintf(
