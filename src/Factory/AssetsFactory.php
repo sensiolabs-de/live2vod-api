@@ -34,6 +34,26 @@ final class AssetsFactory extends ObjectFactory
         ]);
     }
 
+    public static function allBitrates(): self
+    {
+        $videoId = self::faker()->uuid();
+        $baseUrl = self::faker()->url();
+
+        $files = [];
+
+        foreach (Bitrate::cases() as $bitrate) {
+            $files[] = new File(
+                filepath: new Filepath(\sprintf('videos/%s/video_%d.mp4', $videoId, $bitrate->value)),
+                bitrate: $bitrate,
+                url: new Url(\sprintf('%s/videos/%s/video_%d.mp4', $baseUrl, $videoId, $bitrate->value)),
+            );
+        }
+
+        return self::new([
+            'files' => $files,
+        ]);
+    }
+
     /**
      * @return array{streams: array<Stream>, files: array<File>, thumbnail: Thumbnail}
      */
@@ -42,30 +62,11 @@ final class AssetsFactory extends ObjectFactory
         $videoId = self::faker()->uuid();
         $baseUrl = self::faker()->url();
 
+        // Only highest quality MP4 is available since ExtractOptions Profile "highest" is used
         $files = [
             new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_496400.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_496400,
-                url: new Url(\sprintf('%s/videos/%s/video_496400.mp4', $baseUrl, $videoId)),
-            ),
-            new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_789600.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_789600,
-                url: new Url(\sprintf('%s/videos/%s/video_789600.mp4', $baseUrl, $videoId)),
-            ),
-            new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_1639600.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_1639600,
-                url: new Url(\sprintf('%s/videos/%s/video_1639600.mp4', $baseUrl, $videoId)),
-            ),
-            new File(
-                filepath: new Filepath(\sprintf('videos/%s/video_3020800.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_3020800,
-                url: new Url(\sprintf('%s/videos/%s/video_3020800.mp4', $baseUrl, $videoId)),
-            ),
-            new File(
                 filepath: new Filepath(\sprintf('videos/%s/video_5299600.mp4', $videoId)),
-                bitrate: Bitrate::BITRATE_5299600,
+                bitrate: Bitrate::highest(),
                 url: new Url(\sprintf('%s/videos/%s/video_5299600.mp4', $baseUrl, $videoId)),
             ),
         ];
