@@ -15,12 +15,13 @@ use Webmozart\Assert\Assert;
  * @phpstan-import-type ActionsArray from Actions
  * @phpstan-import-type ValidationsArray from Validations
  *
- * @phpstan-type FormConfigArray array{clipTitleField?: ?string, buttons?: ButtonsArray, actions?: ActionsArray, validations?: ValidationsArray}
+ * @phpstan-type FormConfigArray array{clipTitleField?: ?string, clipThumbnailField?: ?string, buttons?: ButtonsArray, actions?: ActionsArray, validations?: ValidationsArray}
  */
 final class FormConfig
 {
     public function __construct(
         private ?Name $clipTitleField = null,
+        private ?Name $clipThumbnailField = null,
         private Buttons $buttons = new Buttons(),
         private Actions $actions = new Actions(),
         private Validations $validations = new Validations(),
@@ -35,6 +36,11 @@ final class FormConfig
     public function getClipTitleField(): ?Name
     {
         return $this->clipTitleField;
+    }
+
+    public function getClipThumbnailField(): ?Name
+    {
+        return $this->clipThumbnailField;
     }
 
     public function getButtons(): Buttons
@@ -58,9 +64,11 @@ final class FormConfig
     public static function fromArray(array $data): self
     {
         $clipTitleField = $data['clipTitleField'] ?? null;
+        $clipThumbnailField = $data['clipThumbnailField'] ?? null;
 
         return new self(
             clipTitleField: \is_string($clipTitleField) ? new Name($clipTitleField) : null,
+            clipThumbnailField: \is_string($clipThumbnailField) ? new Name($clipThumbnailField) : null,
             buttons: isset($data['buttons']) ? Buttons::fromArray($data['buttons']) : new Buttons(),
             actions: isset($data['actions']) ? Actions::fromArray($data['actions']) : new Actions(),
             validations: isset($data['validations']) ? Validations::fromArray($data['validations']) : new Validations(),
@@ -74,6 +82,7 @@ final class FormConfig
     {
         return [
             'clipTitleField' => $this->clipTitleField?->toString(),
+            'clipThumbnailField' => $this->clipThumbnailField?->toString(),
             'buttons' => $this->buttons->toArray(),
             'actions' => $this->actions->toArray(),
             'validations' => $this->validations->toArray(),

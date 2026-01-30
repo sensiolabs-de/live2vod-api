@@ -10,9 +10,7 @@ use SensioLabs\Live2Vod\Api\Domain\Clip\File\Bitrate;
 use SensioLabs\Live2Vod\Api\Domain\Clip\Filepath;
 use SensioLabs\Live2Vod\Api\Domain\Clip\Stream;
 use SensioLabs\Live2Vod\Api\Domain\Clip\StreamType;
-use SensioLabs\Live2Vod\Api\Domain\Clip\Thumbnail;
 use SensioLabs\Live2Vod\Api\Domain\Url;
-use Symfony\Component\Uid\Ulid;
 use Zenstruck\Foundry\ObjectFactory;
 
 /**
@@ -30,7 +28,6 @@ final class AssetsFactory extends ObjectFactory
         return self::new([
             'streams' => [],
             'files' => [],
-            'thumbnail' => null,
         ]);
     }
 
@@ -55,7 +52,7 @@ final class AssetsFactory extends ObjectFactory
     }
 
     /**
-     * @return array{streams: array<Stream>, files: array<File>, thumbnail: Thumbnail}
+     * @return array{streams: array<Stream>, files: array<File>}
      */
     protected function defaults(): array
     {
@@ -93,16 +90,16 @@ final class AssetsFactory extends ObjectFactory
         return [
             'streams' => $streams,
             'files' => $files,
-            'thumbnail' => new Thumbnail(\sprintf('%s.jpg', (new Ulid())->toBase32())),
         ];
     }
 
     protected function initialize(): static
     {
-        return $this->instantiateWith(static fn (array $attributes): Assets => new Assets(
-            streams: $attributes['streams'] ?? [],
-            files: $attributes['files'] ?? [],
-            thumbnail: $attributes['thumbnail'] ?? null,
-        ));
+        return $this->instantiateWith(static function (array $attributes): Assets {
+            return new Assets(
+                streams: $attributes['streams'] ?? [],
+                files: $attributes['files'] ?? [],
+            );
+        });
     }
 }

@@ -28,6 +28,10 @@ final class Form
             $this->getField($this->config->getClipTitleField(), FieldType::STRING);
         }
 
+        if ($this->config->getClipThumbnailField() instanceof Name) {
+            $this->getField($this->config->getClipThumbnailField(), FieldType::IMAGE);
+        }
+
         foreach ($this->config->getButtons() as $button) {
             $this->getField($button->getField(), FieldType::BOOLEAN);
         }

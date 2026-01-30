@@ -16,7 +16,7 @@ use SensioLabs\Live2Vod\Api\Domain\Url;
  * @phpstan-import-type StreamArray from Stream
  * @phpstan-import-type FileArray from File
  *
- * @phpstan-type AssetsArray array{streams: array<StreamArray>, files: array<FileArray>, thumbnail: null|string}
+ * @phpstan-type AssetsArray array{streams: array<StreamArray>, files: array<FileArray>}
  */
 final class Assets
 {
@@ -27,7 +27,6 @@ final class Assets
     public function __construct(
         private array $streams = [],
         private array $files = [],
-        private ?Thumbnail $thumbnail = null,
     ) {
     }
 
@@ -47,13 +46,8 @@ final class Assets
         return $this->files;
     }
 
-    public function getThumbnail(): ?Thumbnail
-    {
-        return $this->thumbnail;
-    }
-
     /**
-     * @param array{streams?: array<StreamArray>, files?: array<FileArray>, thumbnail?: null|non-empty-string} $data
+     * @param array{streams?: array<StreamArray>, files?: array<FileArray>} $data
      */
     public static function fromArray(array $data): self
     {
@@ -81,7 +75,6 @@ final class Assets
         return new self(
             streams: $streams,
             files: $files,
-            thumbnail: \array_key_exists('thumbnail', $data) && null !== $data['thumbnail'] ? new Thumbnail($data['thumbnail']) : null,
         );
     }
 
@@ -93,7 +86,6 @@ final class Assets
         return [
             'streams' => array_map(static fn (Stream $stream) => $stream->toArray(), $this->streams),
             'files' => array_map(static fn (File $file) => $file->toArray(), $this->files),
-            'thumbnail' => $this->thumbnail?->toString(),
         ];
     }
 
@@ -105,7 +97,6 @@ final class Assets
         return new self(
             streams: $streams,
             files: $this->files,
-            thumbnail: $this->thumbnail,
         );
     }
 
@@ -117,16 +108,6 @@ final class Assets
         return new self(
             streams: $this->streams,
             files: $files,
-            thumbnail: $this->thumbnail,
-        );
-    }
-
-    public function withThumbnail(?Thumbnail $thumbnail): self
-    {
-        return new self(
-            streams: $this->streams,
-            files: $this->files,
-            thumbnail: $thumbnail,
         );
     }
 
@@ -138,7 +119,6 @@ final class Assets
         return new self(
             streams: $streams,
             files: $this->files,
-            thumbnail: $this->thumbnail,
         );
     }
 
@@ -150,16 +130,7 @@ final class Assets
         return new self(
             streams: $this->streams,
             files: $files,
-            thumbnail: $this->thumbnail,
         );
-    }
-
-    /**
-     * @phpstan-assert-if-true !null $this->thumbnail
-     */
-    public function hasThumbnail(): bool
-    {
-        return $this->thumbnail instanceof Thumbnail;
     }
 
     /**
@@ -222,7 +193,7 @@ final class Assets
 
     /**
      * Returns a new Assets instance with the token appended to all stream URLs.
-     * Files and thumbnail remain unchanged.
+     * Files remain unchanged.
      */
     public function withToken(Token $token): self
     {
@@ -234,7 +205,6 @@ final class Assets
         return new self(
             streams: $streamsWithToken,
             files: $this->files,
-            thumbnail: $this->thumbnail,
         );
     }
 
