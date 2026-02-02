@@ -13,11 +13,11 @@ use Webmozart\Assert\Assert;
 final class FileTransferResult
 {
     private function __construct(
-        public bool $successful,
-        public Url $source,
-        public Filepath $destinationPath,
-        public ?int $bytesTransferred = null,
-        public ?string $errorMessage = null,
+        public readonly bool $successful,
+        public readonly Url $source,
+        public readonly Filepath $destinationPath,
+        public readonly ?int $bytesTransferred = null,
+        public readonly ?string $errorMessage = null,
     ) {
         if (null !== $bytesTransferred) {
             Assert::positiveInteger($bytesTransferred);

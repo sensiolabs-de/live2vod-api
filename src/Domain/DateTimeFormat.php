@@ -21,6 +21,7 @@ final class DateTimeFormat
      *
      * The database stores timestamps with millisecond precision using TIMESTAMP(3).
      * Microseconds are truncated to milliseconds for display (v = microseconds / 1000).
+     * @var string
      */
     public const UTC_WITH_MILLISECONDS = 'Y-m-d\TH:i:s.v\Z';
 
@@ -30,6 +31,7 @@ final class DateTimeFormat
      * Format: 2025-10-18T14:30:00Z
      *
      * This format is used for timestamps that don't require millisecond precision.
+     * @var string
      */
     public const UTC = 'Y-m-d\TH:i:s\Z';
 }

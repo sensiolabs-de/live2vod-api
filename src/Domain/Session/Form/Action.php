@@ -10,9 +10,9 @@ namespace SensioLabs\Live2Vod\Api\Domain\Session\Form;
 final class Action
 {
     public function __construct(
-        private Name $field,
-        private Endpoint $endpoint,
-        private ActionOn $on,
+        private readonly Name $field,
+        private readonly Endpoint $endpoint,
+        private readonly ActionOn $on,
     ) {
     }
 

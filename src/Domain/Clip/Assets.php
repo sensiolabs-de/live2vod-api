@@ -25,8 +25,8 @@ final class Assets
      * @param array<File>   $files
      */
     public function __construct(
-        private array $streams = [],
-        private array $files = [],
+        private readonly array $streams = [],
+        private readonly array $files = [],
     ) {
     }
 

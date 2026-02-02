@@ -14,8 +14,8 @@ use function Safe\hex2bin;
 final class TokenGenerator implements TokenGeneratorInterface
 {
     public function __construct(
-        private string $sharedSecret,
-        private int $ttlInDays = 30,
+        private readonly string $sharedSecret,
+        private readonly int $ttlInDays = 30,
     ) {
         Assert::greaterThan($ttlInDays, 0, 'TTL must be at least 1 day.');
     }

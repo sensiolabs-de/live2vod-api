@@ -29,15 +29,15 @@ use Webmozart\Assert\Assert;
 final class DateTimeField implements Field
 {
     public function __construct(
-        private Name $name,
-        private Label $label,
-        private bool $disabled = false,
-        private ?string $minDateTime = null,
-        private ?string $maxDateTime = null,
-        private ?string $default = null,
-        private bool $required = false,
-        private ?Placeholder $placeholder = null,
-        private ?Help $help = null,
+        private readonly Name $name,
+        private readonly Label $label,
+        private readonly bool $disabled = false,
+        private readonly ?string $minDateTime = null,
+        private readonly ?string $maxDateTime = null,
+        private readonly ?string $default = null,
+        private readonly bool $required = false,
+        private readonly ?Placeholder $placeholder = null,
+        private readonly ?Help $help = null,
     ) {
         if (!\in_array(null, [$this->default, $this->minDateTime, $this->maxDateTime], true)) {
             $defaultDateTime = \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $this->default);

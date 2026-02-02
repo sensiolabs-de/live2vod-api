@@ -16,7 +16,7 @@ abstract class Collection implements \ArrayAccess, \Countable, \IteratorAggregat
      * @param list<T> $items
      */
     public function __construct(
-        private array $items = [],
+        private readonly array $items = [],
     ) {
     }
 

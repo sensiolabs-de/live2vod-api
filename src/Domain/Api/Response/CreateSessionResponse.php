@@ -10,7 +10,7 @@ use Webmozart\Assert\Assert;
 final class CreateSessionResponse
 {
     public function __construct(
-        public SessionId $id,
+        public readonly SessionId $id,
     ) {
     }
 

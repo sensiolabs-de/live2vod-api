@@ -25,10 +25,10 @@ final class CreateSessionRequest implements \JsonSerializable
      * @param array<string, null|bool|float|int|string> $metadata
      */
     public function __construct(
-        public Url $callbackUrl,
-        public Form $form,
-        public Config $config,
-        public array $metadata = [],
+        public readonly Url $callbackUrl,
+        public readonly Form $form,
+        public readonly Config $config,
+        public readonly array $metadata = [],
     ) {
     }
 

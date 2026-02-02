@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\File;
 final class NullFileDownloader implements FileDownloaderInterface
 {
     public function __construct(
-        private string $filepath,
+        private readonly string $filepath,
     ) {
     }
 

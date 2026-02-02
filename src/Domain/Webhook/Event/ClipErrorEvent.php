@@ -13,19 +13,19 @@ use Webmozart\Assert\Assert;
 
 final class ClipErrorEvent implements WebhookEvent
 {
-    public SessionId $sessionId;
-    public ClipId $clipId;
-    public Status $status;
-    public int $position;
-    public bool $last;
-    public DateTimeImmutable $markIn;
-    public DateTimeImmutable $markOut;
+    public readonly SessionId $sessionId;
+    public readonly ClipId $clipId;
+    public readonly Status $status;
+    public readonly int $position;
+    public readonly bool $last;
+    public readonly DateTimeImmutable $markIn;
+    public readonly DateTimeImmutable $markOut;
 
     /**
      * @var array<string, mixed>
      */
-    public array $formData;
-    public ?Assets $assets;
+    public readonly array $formData;
+    public readonly ?Assets $assets;
 
     /**
      * @param array<string, mixed> $data

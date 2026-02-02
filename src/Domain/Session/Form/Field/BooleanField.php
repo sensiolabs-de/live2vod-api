@@ -25,12 +25,12 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Placeholder;
 final class BooleanField implements Field
 {
     public function __construct(
-        private Name $name,
-        private Label $label,
-        private bool $disabled = false,
-        private bool $default = false,
-        private ?Placeholder $placeholder = null,
-        private ?Help $help = null,
+        private readonly Name $name,
+        private readonly Label $label,
+        private readonly bool $disabled = false,
+        private readonly bool $default = false,
+        private readonly ?Placeholder $placeholder = null,
+        private readonly ?Help $help = null,
     ) {
     }
 

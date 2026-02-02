@@ -30,16 +30,16 @@ use Webmozart\Assert\Assert;
 final class IntegerField implements Field
 {
     public function __construct(
-        private Name $name,
-        private Label $label,
-        private bool $disabled = false,
-        private ?int $min = null,
-        private ?int $max = null,
-        private ?int $step = null,
-        private ?int $default = null,
-        private bool $required = false,
-        private ?Placeholder $placeholder = null,
-        private ?Help $help = null,
+        private readonly Name $name,
+        private readonly Label $label,
+        private readonly bool $disabled = false,
+        private readonly ?int $min = null,
+        private readonly ?int $max = null,
+        private readonly ?int $step = null,
+        private readonly ?int $default = null,
+        private readonly bool $required = false,
+        private readonly ?Placeholder $placeholder = null,
+        private readonly ?Help $help = null,
     ) {
         if (null !== $step) {
             Assert::greaterThan($step, 0, 'Step value must be greater than 0');

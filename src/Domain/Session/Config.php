@@ -23,16 +23,16 @@ use Webmozart\Assert\Assert;
  */
 final class Config implements \JsonSerializable
 {
-    public ?string $channel;
+    public readonly ?string $channel;
 
     public function __construct(
         ?string $channel = null,
-        public ?\DateTimeImmutable $startTime = null,
-        public ?\DateTimeImmutable $endTime = null,
-        public ?int $maxClips = null,
-        public ?Title $title = null,
-        public ?Url $cmsUrl = null,
-        public bool $redSysUpload = false,
+        public readonly ?\DateTimeImmutable $startTime = null,
+        public readonly ?\DateTimeImmutable $endTime = null,
+        public readonly ?int $maxClips = null,
+        public readonly ?Title $title = null,
+        public readonly ?Url $cmsUrl = null,
+        public readonly bool $redSysUpload = false,
     ) {
         $this->channel = null !== $channel ? TrimmedNonEmptyString::fromString($channel)->toString() : null;
 

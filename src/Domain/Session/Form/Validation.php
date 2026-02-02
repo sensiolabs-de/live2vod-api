@@ -10,10 +10,10 @@ namespace SensioLabs\Live2Vod\Api\Domain\Session\Form;
 final class Validation
 {
     public function __construct(
-        private Name $field,
-        private Comparator $comparator,
-        private Name $compareWith,
-        private Name $errorPath,
+        private readonly Name $field,
+        private readonly Comparator $comparator,
+        private readonly Name $compareWith,
+        private readonly Name $errorPath,
     ) {
         if ($field->equals($compareWith)) {
             throw new \InvalidArgumentException('Field and compareWith cannot be the same');

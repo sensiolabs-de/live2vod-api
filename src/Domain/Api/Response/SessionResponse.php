@@ -15,13 +15,13 @@ final class SessionResponse
      * @param array<string, mixed> $metadata
      */
     public function __construct(
-        public SessionId $id,
-        public DateTimeImmutable $createdAt,
-        public DateTimeImmutable $updatedAt,
-        public array $config,
-        public array $metadata,
-        public string $callbackUrl,
-        public string $channel,
+        public readonly SessionId $id,
+        public readonly DateTimeImmutable $createdAt,
+        public readonly DateTimeImmutable $updatedAt,
+        public readonly array $config,
+        public readonly array $metadata,
+        public readonly string $callbackUrl,
+        public readonly string $channel,
     ) {
     }
 

@@ -16,6 +16,7 @@ final class Requirements
      * Regular expression pattern for matching ULID-based image filenames.
      * Format: {ULID}.(jpg|jpeg|png|webp)
      * Reuses Symfony's UID_BASE32 pattern for ULID validation.
+     * @var string
      */
     public const FILENAME_REGEX = Requirement::UID_BASE32.'\.(jpg|jpeg|png|webp)';
 
@@ -26,6 +27,7 @@ final class Requirements
      * - 2023-12-25T10:30:00+02:00
      * - 2023-12-25T10:30:00.123Z
      * - 2023-12-25T10:30:00.123+02:00.
+     * @var string
      */
     public const ISO_8601 = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?(Z|[+-]\d{2}:\d{2})$/';
 

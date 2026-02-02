@@ -10,8 +10,8 @@ use Webmozart\Assert\Assert;
 
 final class ClipDeletedEvent implements WebhookEvent
 {
-    public SessionId $sessionId;
-    public ClipId $clipId;
+    public readonly SessionId $sessionId;
+    public readonly ClipId $clipId;
 
     /**
      * @param array<string, mixed> $data

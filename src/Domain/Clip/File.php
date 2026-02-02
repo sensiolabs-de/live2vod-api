@@ -13,12 +13,12 @@ use SensioLabs\Live2Vod\Api\Domain\Url;
  */
 final class File
 {
-    private FileType $type;
+    private readonly FileType $type;
 
     public function __construct(
-        private Filepath $filepath,
-        private Bitrate $bitrate,
-        private Url $url,
+        private readonly Filepath $filepath,
+        private readonly Bitrate $bitrate,
+        private readonly Url $url,
         ?FileType $type = null,
     ) {
         if (!$type instanceof FileType) {

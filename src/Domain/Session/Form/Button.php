@@ -10,9 +10,9 @@ namespace SensioLabs\Live2Vod\Api\Domain\Session\Form;
 final class Button
 {
     public function __construct(
-        private Name $field,
-        private Icon $iconWhenTrue = Icon::ON,
-        private Icon $iconWhenFalse = Icon::OFF,
+        private readonly Name $field,
+        private readonly Icon $iconWhenTrue = Icon::ON,
+        private readonly Icon $iconWhenFalse = Icon::OFF,
     ) {
     }
 

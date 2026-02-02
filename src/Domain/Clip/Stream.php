@@ -14,8 +14,8 @@ use Webmozart\Assert\Assert;
 final class Stream
 {
     public function __construct(
-        private StreamType $type,
-        private Url $url,
+        private readonly StreamType $type,
+        private readonly Url $url,
     ) {
     }
 

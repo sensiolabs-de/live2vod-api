@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 final class NullFileTransfer implements FileTransferInterface
 {
     public function __construct(
-        public bool $successful,
+        public readonly bool $successful,
     ) {
     }
 

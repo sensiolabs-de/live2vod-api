@@ -21,8 +21,8 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Name;
 final class Form
 {
     public function __construct(
-        private Fields $fields = new Fields(),
-        private FormConfig $config = new FormConfig(),
+        private readonly Fields $fields = new Fields(),
+        private readonly FormConfig $config = new FormConfig(),
     ) {
         if ($this->config->getClipTitleField() instanceof Name) {
             $this->getField($this->config->getClipTitleField(), FieldType::STRING);

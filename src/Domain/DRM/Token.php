@@ -14,9 +14,9 @@ use Webmozart\Assert\Assert;
 final class Token
 {
     public function __construct(
-        private string $value,
-        private DateTimeImmutable $issuedAt,
-        private DateTimeImmutable $expiresAt,
+        private readonly string $value,
+        private readonly DateTimeImmutable $issuedAt,
+        private readonly DateTimeImmutable $expiresAt,
     ) {
         Assert::greaterThan($expiresAt, $issuedAt);
     }

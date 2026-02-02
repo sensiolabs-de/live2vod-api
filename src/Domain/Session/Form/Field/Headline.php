@@ -19,8 +19,8 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Name;
 final class Headline implements Field
 {
     public function __construct(
-        private Name $name,
-        private Label $label,
+        private readonly Name $name,
+        private readonly Label $label,
     ) {
     }
 

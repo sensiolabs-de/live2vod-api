@@ -32,15 +32,15 @@ final class ImageField implements Field
      * @param positive-int       $maxFileSize
      */
     public function __construct(
-        private Name $name,
-        private Label $label,
-        private bool $disabled = false,
-        private array $mimeTypes = ['image/jpeg', 'image/png', 'image/webp'],
-        private int $maxFileSize = 10485760,
+        private readonly Name $name,
+        private readonly Label $label,
+        private readonly bool $disabled = false,
+        private readonly array $mimeTypes = ['image/jpeg', 'image/png', 'image/webp'],
+        private readonly int $maxFileSize = 10485760,
         // 10MB default
-        private bool $required = false,
-        private ?Placeholder $placeholder = null,
-        private ?Help $help = null,
+        private readonly bool $required = false,
+        private readonly ?Placeholder $placeholder = null,
+        private readonly ?Help $help = null,
     ) {
         Assert::notEmpty($mimeTypes, 'MIME types array cannot be empty');
         Assert::allString($mimeTypes, 'All MIME types must be strings');
