@@ -75,9 +75,16 @@ final class Config implements \JsonSerializable
      */
     public static function fromArray(array $data): self
     {
+        $startTime = isset($data['startTime']) ? new DateTimeImmutable($data['startTime']) : null;
+
+        // Normalize to 10-second boundary for ORS/Broadpeak segment alignment
+        if ($startTime instanceof DateTimeImmutable) {
+            $startTime = (new StartTimeNormalizer())->normalize($startTime);
+        }
+
         return new self(
             channel: $data['channel'] ?? null,
-            startTime: isset($data['startTime']) ? new DateTimeImmutable($data['startTime']) : null,
+            startTime: $startTime,
             endTime: isset($data['endTime']) ? new DateTimeImmutable($data['endTime']) : null,
             maxClips: $data['maxClips'] ?? null,
             title: isset($data['title']) ? new Title($data['title']) : null,
