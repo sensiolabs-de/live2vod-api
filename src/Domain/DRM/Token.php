@@ -60,6 +60,6 @@ final class Token
 
     public function toUrlEncoded(): string
     {
-        return urlencode($this->value);
+        return \str_replace('%2F', '/', \rawurlencode($this->value));
     }
 }
