@@ -15,8 +15,8 @@ final class ClipCreatedEvent implements WebhookEvent
     public readonly ClipId $clipId;
     public readonly int $position;
     public readonly bool $last;
-    public readonly DateTimeImmutable $markIn;
-    public readonly DateTimeImmutable $markOut;
+    public readonly ?DateTimeImmutable $markIn;
+    public readonly ?DateTimeImmutable $markOut;
 
     /**
      * @var array<string, mixed>
@@ -45,11 +45,11 @@ final class ClipCreatedEvent implements WebhookEvent
         Assert::boolean($data['last']);
         $this->last = $data['last'];
 
-        Assert::string($data['markIn']);
-        $this->markIn = new DateTimeImmutable($data['markIn']);
+        Assert::nullOrString($data['markIn']);
+        $this->markIn = null !== $data['markIn'] ? new DateTimeImmutable($data['markIn']) : null;
 
-        Assert::string($data['markOut']);
-        $this->markOut = new DateTimeImmutable($data['markOut']);
+        Assert::nullOrString($data['markOut']);
+        $this->markOut = null !== $data['markOut'] ? new DateTimeImmutable($data['markOut']) : null;
 
         Assert::isArray($data['formData']);
         $this->formData = $data['formData'];
