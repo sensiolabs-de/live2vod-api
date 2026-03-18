@@ -9,16 +9,18 @@ use Safe\DateTimeImmutable;
 use Webmozart\Assert\Assert;
 
 /**
- * @phpstan-type TokenArray array{value: string, expires_at: string, issued_at: string}
+ * @phpstan-type TokenArray array{value: string, expires_at: string|null, issued_at: string}
  */
 final class Token
 {
     public function __construct(
         private readonly string $value,
         private readonly DateTimeImmutable $issuedAt,
-        private readonly DateTimeImmutable $expiresAt,
+        private readonly ?DateTimeImmutable $expiresAt = null,
     ) {
-        Assert::greaterThan($expiresAt, $issuedAt);
+        if ($expiresAt instanceof DateTimeImmutable) {
+            Assert::greaterThan($expiresAt, $issuedAt);
+        }
     }
 
     /**
@@ -28,16 +30,21 @@ final class Token
     {
         Assert::keyExists($data, 'value');
         Assert::keyExists($data, 'issued_at');
-        Assert::keyExists($data, 'expires_at');
 
         TrimmedNonEmptyString::fromString($data['value']);
         TrimmedNonEmptyString::fromString($data['issued_at']);
-        TrimmedNonEmptyString::fromString($data['expires_at']);
+
+        $expiresAt = null;
+
+        if (isset($data['expires_at'])) {
+            TrimmedNonEmptyString::fromString($data['expires_at']);
+            $expiresAt = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['expires_at']);
+        }
 
         return new self(
             $data['value'],
             DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['issued_at']),
-            DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['expires_at']),
+            $expiresAt,
         );
     }
 
@@ -48,13 +55,17 @@ final class Token
     {
         return [
             'value' => $this->value,
-            'expires_at' => $this->expiresAt->format('Y-m-d H:i:s'),
+            'expires_at' => $this->expiresAt?->format('Y-m-d H:i:s'),
             'issued_at' => $this->issuedAt->format('Y-m-d H:i:s'),
         ];
     }
 
     public function isExpired(DateTimeImmutable $at = new DateTimeImmutable()): bool
     {
+        if (!$this->expiresAt instanceof DateTimeImmutable) {
+            return false;
+        }
+
         return $at > $this->expiresAt;
     }
 

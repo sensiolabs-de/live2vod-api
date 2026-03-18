@@ -26,7 +26,7 @@ final class TokenFactory extends ObjectFactory
         return [
             'value' => 'test-token-value',
             'issuedAt' => new DateTimeImmutable('2024-01-01 10:00:00'),
-            'expiresAt' => new DateTimeImmutable('2024-01-01 11:00:00'),
+            'expiresAt' => null,
         ];
     }
 }

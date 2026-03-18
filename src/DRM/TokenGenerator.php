@@ -15,9 +15,11 @@ final class TokenGenerator implements TokenGeneratorInterface
 {
     public function __construct(
         private readonly string $sharedSecret,
-        private readonly int $ttlInDays = 30,
+        private readonly ?int $ttlInDays = null,
     ) {
-        Assert::greaterThan($ttlInDays, 0, 'TTL must be at least 1 day.');
+        if (null !== $ttlInDays) {
+            Assert::greaterThan($ttlInDays, 0, 'TTL must be at least 1 day.');
+        }
     }
 
     public function generate(
@@ -29,18 +31,22 @@ final class TokenGenerator implements TokenGeneratorInterface
         Assert::greaterThan($endRec->getTimestamp(), $beginRec->getTimestamp(), 'endRec must be greater than beginRec.');
 
         $issuedAt = new DateTimeImmutable();
-        $expiresAt = $issuedAt->modify(\sprintf('+%d days', $this->ttlInDays));
+        $expiresAt = null;
 
         $beginRecFormatted = $beginRec->format('Ymd\THis');
         $endRecFormatted = $endRec->format('Ymd\THis');
 
-        $tokenFields = [
-            \sprintf('exp=%d', $expiresAt->getTimestamp()),
-            \sprintf('acl=%s', $acl->toString()),
-            \sprintf('geo_loc=%s', $geoLocation->value),
-            \sprintf('begin_rec=%s', $beginRecFormatted),
-            \sprintf('end_rec=%s', $endRecFormatted),
-        ];
+        $tokenFields = [];
+
+        if (null !== $this->ttlInDays) {
+            $expiresAt = $issuedAt->modify(\sprintf('+%d days', $this->ttlInDays));
+            $tokenFields[] = \sprintf('exp=%d', $expiresAt->getTimestamp());
+        }
+
+        $tokenFields[] = \sprintf('acl=%s', $acl->toString());
+        $tokenFields[] = \sprintf('geo_loc=%s', $geoLocation->value);
+        $tokenFields[] = \sprintf('begin_rec=%s', $beginRecFormatted);
+        $tokenFields[] = \sprintf('end_rec=%s', $endRecFormatted);
 
         // Build hash source (same as token fields for ACL-based tokens)
         $hashSource = implode('~', $tokenFields);
