@@ -9,9 +9,8 @@ use Symfony\Component\HttpFoundation\File\File;
 
 final class NullFileDownloader implements FileDownloaderInterface
 {
-    public function __construct(
-        private readonly string $filepath,
-    ) {
+    public function __construct(private readonly string $filepath)
+    {
     }
 
     public function download(Url $url): File

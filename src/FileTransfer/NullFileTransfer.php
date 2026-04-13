@@ -10,9 +10,8 @@ use Symfony\Component\HttpFoundation\File\File;
 
 final class NullFileTransfer implements FileTransferInterface
 {
-    public function __construct(
-        public readonly bool $successful,
-    ) {
+    public function __construct(public readonly bool $successful)
+    {
     }
 
     public function transfer(Url $source, Filepath $destinationPath): FileTransferResult

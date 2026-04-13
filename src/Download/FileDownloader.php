@@ -18,9 +18,8 @@ final class FileDownloader implements FileDownloaderInterface
      */
     private array $temporaryFiles = [];
 
-    public function __construct(
-        private readonly LoggerInterface $logger,
-    ) {
+    public function __construct(private readonly LoggerInterface $logger)
+    {
     }
 
     public function __destruct()
