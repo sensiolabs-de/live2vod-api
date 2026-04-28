@@ -14,11 +14,20 @@ final class ClipApi implements ClipApiInterface
     ) {
     }
 
-    public function delete(ClipId $id): void
+    public function delete(ClipId $id, bool $suppressCallback = false): void
     {
+        $options = [];
+
+        if ($suppressCallback) {
+            $options['headers'] = [
+                'X-Suppress-Callback' => 'true',
+            ];
+        }
+
         $this->client->request(
             Request::METHOD_DELETE,
             sprintf('api/clips/%s', $id),
+            $options,
         );
     }
 }

@@ -28,10 +28,37 @@ final class ClipApiTest extends TestCase
             ->with(
                 method: Request::METHOD_DELETE,
                 url: 'api/clips/01JAXRHM7JZSP4Y4PXSACN8CPT',
+                options: [],
             )
             ->willReturn($response);
 
         $api = new ClipApi(client: $client);
         $api->delete(id: $clipId);
+    }
+
+    #[Test]
+    public function deleteWithSuppressCallback(): void
+    {
+        $clipId = new ClipId('01JAXRHM7JZSP4Y4PXSACN8CPT');
+
+        $response = self::createStub(ResponseInterface::class);
+
+        $client = $this->createMock(ClientInterface::class);
+        $client
+            ->expects(self::once())
+            ->method('request')
+            ->with(
+                method: Request::METHOD_DELETE,
+                url: 'api/clips/01JAXRHM7JZSP4Y4PXSACN8CPT',
+                options: [
+                    'headers' => [
+                        'X-Suppress-Callback' => 'true',
+                    ],
+                ],
+            )
+            ->willReturn($response);
+
+        $api = new ClipApi(client: $client);
+        $api->delete(id: $clipId, suppressCallback: true);
     }
 }

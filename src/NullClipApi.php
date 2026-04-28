@@ -8,7 +8,7 @@ use SensioLabs\Live2Vod\Api\Domain\Identifier\ClipId;
 
 final class NullClipApi implements ClipApiInterface
 {
-    public function delete(ClipId $id): void
+    public function delete(ClipId $id, bool $suppressCallback = false): void
     {
     }
 }
