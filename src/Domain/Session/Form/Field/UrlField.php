@@ -26,20 +26,20 @@ use function Safe\parse_url;
  *     protocols: array<int, string>
  * }
  */
-final class UrlField implements Field
+final readonly class UrlField implements Field
 {
     /**
      * @param array<int, string> $protocols
      */
     public function __construct(
-        private readonly Name $name,
-        private readonly Label $label,
-        private readonly bool $disabled = false,
-        private readonly ?string $default = null,
-        private readonly array $protocols = ['http', 'https'],
-        private readonly bool $required = false,
-        private readonly ?Placeholder $placeholder = null,
-        private readonly ?Help $help = null,
+        private Name $name,
+        private Label $label,
+        private bool $disabled = false,
+        private ?string $default = null,
+        private array $protocols = ['http', 'https'],
+        private bool $required = false,
+        private ?Placeholder $placeholder = null,
+        private ?Help $help = null,
     ) {
         Assert::notEmpty($protocols, 'Protocols array cannot be empty');
         Assert::allString($protocols, 'All protocols must be strings');

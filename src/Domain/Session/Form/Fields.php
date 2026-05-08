@@ -24,7 +24,7 @@ use Webmozart\Assert\Assert;
 /**
  * @extends Collection<Field>
  */
-final class Fields extends Collection
+final readonly class Fields extends Collection
 {
     public function __construct(Field ...$field)
     {

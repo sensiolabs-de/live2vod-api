@@ -27,19 +27,19 @@ use Webmozart\Assert\Assert;
  *     default: float|null
  * }
  */
-final class FloatField implements Field
+final readonly class FloatField implements Field
 {
     public function __construct(
-        private readonly Name $name,
-        private readonly Label $label,
-        private readonly bool $disabled = false,
-        private readonly ?float $min = null,
-        private readonly ?float $max = null,
-        private readonly ?float $step = null,
-        private readonly ?float $default = null,
-        private readonly bool $required = false,
-        private readonly ?Placeholder $placeholder = null,
-        private readonly ?Help $help = null,
+        private Name $name,
+        private Label $label,
+        private bool $disabled = false,
+        private ?float $min = null,
+        private ?float $max = null,
+        private ?float $step = null,
+        private ?float $default = null,
+        private bool $required = false,
+        private ?Placeholder $placeholder = null,
+        private ?Help $help = null,
     ) {
         if (null !== $step) {
             Assert::greaterThan($step, 0, 'Step value must be greater than 0');

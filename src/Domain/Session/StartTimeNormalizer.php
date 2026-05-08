@@ -24,10 +24,7 @@ namespace SensioLabs\Live2Vod\Api\Domain\Session;
  */
 final class StartTimeNormalizer
 {
-    /**
-     * @var int
-     */
-    private const SEGMENT_DURATION_SECONDS = 10;
+    private const int SEGMENT_DURATION_SECONDS = 10;
 
     public function normalize(\DateTimeImmutable $time): \DateTimeImmutable
     {

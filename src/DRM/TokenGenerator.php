@@ -11,11 +11,11 @@ use Safe\DateTimeImmutable;
 use Webmozart\Assert\Assert;
 use function Safe\hex2bin;
 
-final class TokenGenerator implements TokenGeneratorInterface
+final readonly class TokenGenerator implements TokenGeneratorInterface
 {
     public function __construct(
-        private readonly string $sharedSecret,
-        private readonly ?int $ttlInDays = null,
+        private string $sharedSecret,
+        private ?int $ttlInDays = null,
     ) {
         if (null !== $ttlInDays) {
             Assert::greaterThan($ttlInDays, 0, 'TTL must be at least 1 day.');

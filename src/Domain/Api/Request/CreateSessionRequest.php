@@ -19,16 +19,16 @@ use SensioLabs\Live2Vod\Api\Domain\Url;
  *     metadata: array<string, string|int|bool|float|null>,
  * }
  */
-final class CreateSessionRequest implements \JsonSerializable
+final readonly class CreateSessionRequest implements \JsonSerializable
 {
     /**
      * @param array<string, null|bool|float|int|string> $metadata
      */
     public function __construct(
-        public readonly Url $callbackUrl,
-        public readonly Form $form,
-        public readonly Config $config,
-        public readonly array $metadata = [],
+        public Url $callbackUrl,
+        public Form $form,
+        public Config $config,
+        public array $metadata = [],
     ) {
     }
 

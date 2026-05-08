@@ -11,11 +11,11 @@ use Webmozart\Assert\Assert;
 /**
  * @phpstan-type StreamArray array{type: string, url: string}
  */
-final class Stream
+final readonly class Stream
 {
     public function __construct(
-        private readonly StreamType $type,
-        private readonly Url $url,
+        private StreamType $type,
+        private Url $url,
     ) {
     }
 

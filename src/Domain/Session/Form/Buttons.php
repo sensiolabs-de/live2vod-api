@@ -13,7 +13,7 @@ use SensioLabs\Live2Vod\Api\Domain\Collection;
  *
  * @extends Collection<Button>
  */
-final class Buttons extends Collection
+final readonly class Buttons extends Collection
 {
     /**
      * @param list<Button> $items

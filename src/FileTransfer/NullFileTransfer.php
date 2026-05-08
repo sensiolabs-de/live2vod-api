@@ -8,9 +8,9 @@ use SensioLabs\Live2Vod\Api\Domain\Clip\Filepath;
 use SensioLabs\Live2Vod\Api\Domain\Url;
 use Symfony\Component\HttpFoundation\File\File;
 
-final class NullFileTransfer implements FileTransferInterface
+final readonly class NullFileTransfer implements FileTransferInterface
 {
-    public function __construct(public readonly bool $successful)
+    public function __construct(public bool $successful)
     {
     }
 

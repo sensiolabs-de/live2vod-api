@@ -9,19 +9,19 @@ use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
 use Safe\DateTimeImmutable;
 use Webmozart\Assert\Assert;
 
-final class ClipCreatedEvent implements WebhookEvent
+final readonly class ClipCreatedEvent implements WebhookEvent
 {
-    public readonly SessionId $sessionId;
-    public readonly ClipId $clipId;
-    public readonly int $position;
-    public readonly bool $last;
-    public readonly ?DateTimeImmutable $markIn;
-    public readonly ?DateTimeImmutable $markOut;
+    public SessionId $sessionId;
+    public ClipId $clipId;
+    public int $position;
+    public bool $last;
+    public ?DateTimeImmutable $markIn;
+    public ?DateTimeImmutable $markOut;
 
     /**
      * @var array<string, mixed>
      */
-    public readonly array $formData;
+    public array $formData;
 
     /**
      * @param array<string, mixed> $data

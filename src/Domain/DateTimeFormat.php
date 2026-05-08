@@ -7,7 +7,7 @@ namespace SensioLabs\Live2Vod\Api\Domain;
 /**
  * Defines the standard datetime format used across the application.
  */
-final class DateTimeFormat
+final readonly class DateTimeFormat
 {
     /**
      * ISO 8601 / RFC 3339 format with UTC timezone (Z-suffix) and milliseconds.
@@ -21,9 +21,8 @@ final class DateTimeFormat
      *
      * The database stores timestamps with millisecond precision using TIMESTAMP(3).
      * Microseconds are truncated to milliseconds for display (v = microseconds / 1000).
-     * @var string
      */
-    public const UTC_WITH_MILLISECONDS = 'Y-m-d\TH:i:s.v\Z';
+    public const string UTC_WITH_MILLISECONDS = 'Y-m-d\TH:i:s.v\Z';
 
     /**
      * ISO 8601 / RFC 3339 format with UTC timezone (Z-suffix) without milliseconds.
@@ -31,7 +30,6 @@ final class DateTimeFormat
      * Format: 2025-10-18T14:30:00Z
      *
      * This format is used for timestamps that don't require millisecond precision.
-     * @var string
      */
-    public const UTC = 'Y-m-d\TH:i:s\Z';
+    public const string UTC = 'Y-m-d\TH:i:s\Z';
 }

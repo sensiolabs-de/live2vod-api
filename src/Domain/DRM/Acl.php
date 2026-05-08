@@ -15,11 +15,11 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Channel;
  *
  * @see docs/Token Authentication_20251010.pdf
  */
-final class Acl implements \Stringable
+final readonly class Acl implements \Stringable
 {
     public function __construct(
-        public readonly Channel $channel,
-        public readonly bool $drm,
+        public Channel $channel,
+        public bool $drm,
     ) {
     }
 

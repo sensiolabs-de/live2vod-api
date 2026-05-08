@@ -7,12 +7,12 @@ namespace SensioLabs\Live2Vod\Api\Domain\Session\Form;
 /**
  * @phpstan-type ButtonArray array{field: string, icons: array{true: string, false: string}}
  */
-final class Button
+final readonly class Button
 {
     public function __construct(
-        private readonly Name $field,
-        private readonly Icon $iconWhenTrue = Icon::ON,
-        private readonly Icon $iconWhenFalse = Icon::OFF,
+        private Name $field,
+        private Icon $iconWhenTrue = Icon::ON,
+        private Icon $iconWhenFalse = Icon::OFF,
     ) {
     }
 

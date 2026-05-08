@@ -11,14 +11,14 @@ use SensioLabs\Live2Vod\Api\Domain\Url;
 /**
  * @phpstan-type FileArray array{type: string, filepath: string, url: string, bitrate: int}
  */
-final class File
+final readonly class File
 {
-    private readonly FileType $type;
+    private FileType $type;
 
     public function __construct(
-        private readonly Filepath $filepath,
-        private readonly Bitrate $bitrate,
-        private readonly Url $url,
+        private Filepath $filepath,
+        private Bitrate $bitrate,
+        private Url $url,
         ?FileType $type = null,
     ) {
         if (!$type instanceof FileType) {

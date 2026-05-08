@@ -26,18 +26,18 @@ use Webmozart\Assert\Assert;
  *     rows: int
  * }
  */
-final class TextareaField implements Field
+final readonly class TextareaField implements Field
 {
     public function __construct(
-        private readonly Name $name,
-        private readonly Label $label,
-        private readonly bool $disabled = false,
-        private readonly ?int $minLength = null,
-        private readonly ?int $maxLength = null,
-        private readonly int $rows = 3,
-        private readonly bool $required = false,
-        private readonly ?Placeholder $placeholder = null,
-        private readonly ?Help $help = null,
+        private Name $name,
+        private Label $label,
+        private bool $disabled = false,
+        private ?int $minLength = null,
+        private ?int $maxLength = null,
+        private int $rows = 3,
+        private bool $required = false,
+        private ?Placeholder $placeholder = null,
+        private ?Help $help = null,
     ) {
         Assert::greaterThanEq($rows, 1, 'Rows must be at least 1');
 

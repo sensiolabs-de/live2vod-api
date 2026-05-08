@@ -8,10 +8,10 @@ use SensioLabs\Live2Vod\Api\Domain\Identifier\ClipId;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
 use Webmozart\Assert\Assert;
 
-final class ClipDeletedEvent implements WebhookEvent
+final readonly class ClipDeletedEvent implements WebhookEvent
 {
-    public readonly SessionId $sessionId;
-    public readonly ClipId $clipId;
+    public SessionId $sessionId;
+    public ClipId $clipId;
 
     /**
      * @param array<string, mixed> $data

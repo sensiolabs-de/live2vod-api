@@ -18,11 +18,11 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Name;
  * @phpstan-type FieldArray array<string, mixed>
  * @phpstan-type FormArray array{config: FormConfigArray, fields: array<int, FieldArray>}
  */
-final class Form
+final readonly class Form
 {
     public function __construct(
-        private readonly Fields $fields = new Fields(),
-        private readonly FormConfig $config = new FormConfig(),
+        private Fields $fields = new Fields(),
+        private FormConfig $config = new FormConfig(),
     ) {
         if ($this->config->getClipTitleField() instanceof Name) {
             $this->getField($this->config->getClipTitleField(), FieldType::STRING);

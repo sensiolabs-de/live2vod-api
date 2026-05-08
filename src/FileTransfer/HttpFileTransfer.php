@@ -22,16 +22,13 @@ use function Safe\fwrite;
 use function Safe\rename;
 use function Safe\unlink;
 
-final class HttpFileTransfer implements FileTransferInterface
+final readonly class HttpFileTransfer implements FileTransferInterface
 {
-    /**
-     * @var string
-     */
-    private const TEMP_FILE_EXTENSION = '.temp';
+    private const string TEMP_FILE_EXTENSION = '.temp';
 
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
-        private readonly LoggerInterface $logger,
+        private HttpClientInterface $httpClient,
+        private LoggerInterface $logger,
     ) {
     }
 

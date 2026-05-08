@@ -26,22 +26,22 @@ use Webmozart\Assert\Assert;
  *     default: array<int, int|string>
  * }
  */
-final class MultiSelectField implements Field
+final readonly class MultiSelectField implements Field
 {
     /**
      * @param array<int|string, string> $options
      * @param array<int, int|string>    $default
      */
     public function __construct(
-        private readonly Name $name,
-        private readonly Label $label,
-        private readonly array $options,
-        private readonly bool $disabled = false,
-        private readonly ?int $maxSelection = null,
-        private readonly array $default = [],
-        private readonly bool $required = false,
-        private readonly ?Placeholder $placeholder = null,
-        private readonly ?Help $help = null,
+        private Name $name,
+        private Label $label,
+        private array $options,
+        private bool $disabled = false,
+        private ?int $maxSelection = null,
+        private array $default = [],
+        private bool $required = false,
+        private ?Placeholder $placeholder = null,
+        private ?Help $help = null,
     ) {
         Assert::notEmpty($options, 'Options must not be empty');
 

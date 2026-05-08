@@ -16,11 +16,11 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Name;
  *     type: string
  * }
  */
-final class Headline implements Field
+final readonly class Headline implements Field
 {
     public function __construct(
-        private readonly Name $name,
-        private readonly Label $label,
+        private Name $name,
+        private Label $label,
     ) {
     }
 

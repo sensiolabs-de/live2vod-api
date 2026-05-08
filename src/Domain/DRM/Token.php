@@ -11,12 +11,12 @@ use Webmozart\Assert\Assert;
 /**
  * @phpstan-type TokenArray array{value: string, expires_at: string|null, issued_at: string}
  */
-final class Token
+final readonly class Token
 {
     public function __construct(
-        private readonly string $value,
-        private readonly DateTimeImmutable $issuedAt,
-        private readonly ?DateTimeImmutable $expiresAt = null,
+        private string $value,
+        private DateTimeImmutable $issuedAt,
+        private ?DateTimeImmutable $expiresAt = null,
     ) {
         if ($expiresAt instanceof DateTimeImmutable) {
             Assert::greaterThan($expiresAt, $issuedAt);

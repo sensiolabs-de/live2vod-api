@@ -18,15 +18,15 @@ use SensioLabs\Live2Vod\Api\Domain\Url;
  *
  * @phpstan-type AssetsArray array{streams: array<StreamArray>, files: array<FileArray>}
  */
-final class Assets
+final readonly class Assets
 {
     /**
      * @param array<Stream> $streams
      * @param array<File>   $files
      */
     public function __construct(
-        private readonly array $streams = [],
-        private readonly array $files = [],
+        private array $streams = [],
+        private array $files = [],
     ) {
     }
 

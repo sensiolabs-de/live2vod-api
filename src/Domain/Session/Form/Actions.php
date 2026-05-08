@@ -13,7 +13,7 @@ use SensioLabs\Live2Vod\Api\Domain\Collection;
  *
  * @extends Collection<Action>
  */
-final class Actions extends Collection
+final readonly class Actions extends Collection
 {
     /**
      * @param list<Action> $items

@@ -13,7 +13,7 @@ use SensioLabs\Live2Vod\Api\Domain\Collection;
  *
  * @extends Collection<Validation>
  */
-final class Validations extends Collection
+final readonly class Validations extends Collection
 {
     /**
      * @param list<Validation> $items

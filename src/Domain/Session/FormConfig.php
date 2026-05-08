@@ -17,14 +17,14 @@ use Webmozart\Assert\Assert;
  *
  * @phpstan-type FormConfigArray array{clipTitleField?: ?string, clipThumbnailField?: ?string, buttons?: ButtonsArray, actions?: ActionsArray, validations?: ValidationsArray}
  */
-final class FormConfig
+final readonly class FormConfig
 {
     public function __construct(
-        private readonly ?Name $clipTitleField = null,
-        private readonly ?Name $clipThumbnailField = null,
-        private readonly Buttons $buttons = new Buttons(),
-        private readonly Actions $actions = new Actions(),
-        private readonly Validations $validations = new Validations(),
+        private ?Name $clipTitleField = null,
+        private ?Name $clipThumbnailField = null,
+        private Buttons $buttons = new Buttons(),
+        private Actions $actions = new Actions(),
+        private Validations $validations = new Validations(),
     ) {
         Assert::maxCount(
             $this->buttons,

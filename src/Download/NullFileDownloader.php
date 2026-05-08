@@ -7,9 +7,9 @@ namespace SensioLabs\Live2Vod\Api\Download;
 use SensioLabs\Live2Vod\Api\Domain\Url;
 use Symfony\Component\HttpFoundation\File\File;
 
-final class NullFileDownloader implements FileDownloaderInterface
+final readonly class NullFileDownloader implements FileDownloaderInterface
 {
-    public function __construct(private readonly string $filepath)
+    public function __construct(private string $filepath)
     {
     }
 

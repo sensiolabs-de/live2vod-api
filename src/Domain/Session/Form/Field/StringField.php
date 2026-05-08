@@ -27,19 +27,19 @@ use Webmozart\Assert\Assert;
  *     default: string|null
  * }
  */
-final class StringField implements Field
+final readonly class StringField implements Field
 {
     public function __construct(
-        private readonly Name $name,
-        private readonly Label $label,
-        private readonly bool $disabled = false,
-        private readonly ?int $minLength = null,
-        private readonly ?int $maxLength = null,
-        private readonly ?string $pattern = null,
-        private readonly ?string $default = null,
-        private readonly bool $required = false,
-        private readonly ?Placeholder $placeholder = null,
-        private readonly ?Help $help = null,
+        private Name $name,
+        private Label $label,
+        private bool $disabled = false,
+        private ?int $minLength = null,
+        private ?int $maxLength = null,
+        private ?string $pattern = null,
+        private ?string $default = null,
+        private bool $required = false,
+        private ?Placeholder $placeholder = null,
+        private ?Help $help = null,
     ) {
         if (null !== $default && null !== $pattern) {
             Assert::regex($default, $pattern, \sprintf('Default value "%s" must match the pattern "%s"', $default, $pattern));

@@ -10,12 +10,12 @@ namespace SensioLabs\Live2Vod\Api\Domain;
  * @implements \ArrayAccess<int, T>
  * @implements \IteratorAggregate<int, T>
  */
-abstract class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
+abstract readonly class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 {
     /**
      * @param list<T> $items
      */
-    public function __construct(private readonly array $items = [])
+    public function __construct(private array $items = [])
     {
     }
 

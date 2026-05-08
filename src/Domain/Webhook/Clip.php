@@ -18,17 +18,17 @@ use Webmozart\Assert\Assert;
  *     assets: array<string, mixed>
  * }
  */
-final class Clip
+final readonly class Clip
 {
     /**
      * @param null|array<string, mixed> $formData
      */
     public function __construct(
-        public readonly ClipId $clipId,
-        public readonly Status $status,
-        public readonly int $position,
-        public readonly ?array $formData,
-        public readonly Assets $assets,
+        public ClipId $clipId,
+        public Status $status,
+        public int $position,
+        public ?array $formData,
+        public Assets $assets,
     ) {
     }
 

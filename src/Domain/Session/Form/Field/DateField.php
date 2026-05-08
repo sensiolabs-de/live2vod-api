@@ -26,18 +26,18 @@ use Webmozart\Assert\Assert;
  *     default: string|null
  * }
  */
-final class DateField implements Field
+final readonly class DateField implements Field
 {
     public function __construct(
-        private readonly Name $name,
-        private readonly Label $label,
-        private readonly bool $disabled = false,
-        private readonly ?string $minDate = null,
-        private readonly ?string $maxDate = null,
-        private readonly ?string $default = null,
-        private readonly bool $required = false,
-        private readonly ?Placeholder $placeholder = null,
-        private readonly ?Help $help = null,
+        private Name $name,
+        private Label $label,
+        private bool $disabled = false,
+        private ?string $minDate = null,
+        private ?string $maxDate = null,
+        private ?string $default = null,
+        private bool $required = false,
+        private ?Placeholder $placeholder = null,
+        private ?Help $help = null,
     ) {
         if (!\in_array(null, [$this->default, $this->minDate, $this->maxDate], true)) {
             $defaultDate = \DateTimeImmutable::createFromFormat('!Y-m-d', $this->default);

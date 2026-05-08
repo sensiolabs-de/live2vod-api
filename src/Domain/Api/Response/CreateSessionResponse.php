@@ -7,9 +7,9 @@ namespace SensioLabs\Live2Vod\Api\Domain\Api\Response;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
 use Webmozart\Assert\Assert;
 
-final class CreateSessionResponse
+final readonly class CreateSessionResponse
 {
-    public function __construct(public readonly SessionId $id)
+    public function __construct(public SessionId $id)
     {
     }
 
