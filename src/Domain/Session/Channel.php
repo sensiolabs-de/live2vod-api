@@ -12,13 +12,15 @@ enum Channel: string
 
     case ORF1 = 'orf1';
     case ORFKIDS = 'orfkids';
-    public const VALUES = ['orf1', 'orfkids'];
+    case ORF2W = 'orf2w';
+    public const VALUES = ['orf1', 'orfkids', 'orf2w'];
 
     public function label(): string
     {
         return match ($this) {
             self::ORF1 => 'ORF1',
             self::ORFKIDS => 'ORF Kids',
+            self::ORF2W => 'ORF2 Wien',
         };
     }
 
