@@ -19,7 +19,8 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Placeholder;
  *     placeholder: string|null,
  *     help: string|null,
  *     disabled: bool,
- *     default: bool
+ *     default: bool,
+ *     linkedField: string|null
  * }
  */
 final readonly class BooleanField implements Field
@@ -31,6 +32,7 @@ final readonly class BooleanField implements Field
         private bool $default = false,
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
+        private ?Name $linkedField = null,
     ) {
     }
 
@@ -46,6 +48,7 @@ final readonly class BooleanField implements Field
             default: $data['default'] ?? false,
             placeholder: isset($data['placeholder']) ? new Placeholder($data['placeholder']) : null,
             help: isset($data['help']) ? new Help($data['help']) : null,
+            linkedField: isset($data['linkedField']) ? new Name($data['linkedField']) : null,
         );
     }
 
@@ -62,6 +65,7 @@ final readonly class BooleanField implements Field
             'help' => $this->help?->toString(),
             'disabled' => $this->disabled,
             'default' => $this->default,
+            'linkedField' => $this->linkedField?->toString(),
         ];
     }
 
@@ -103,5 +107,10 @@ final readonly class BooleanField implements Field
     public function getType(): FieldType
     {
         return FieldType::BOOLEAN;
+    }
+
+    public function getLinkedField(): ?Name
+    {
+        return $this->linkedField;
     }
 }
