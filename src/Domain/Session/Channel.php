@@ -12,8 +12,8 @@ enum Channel: string
 
     case ORF1 = 'orf1';
     case ORFKIDS = 'orfkids';
-    case ORF2W = 'orf2wien';
-    public const VALUES = ['orf1', 'orfkids', 'orf2wien'];
+    case ORF2W = 'orfwien';
+    public const VALUES = ['orf1', 'orfkids', 'orfwien'];
 
     public function label(): string
     {
