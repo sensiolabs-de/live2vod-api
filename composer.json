@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": "^8.3.6",
-        "doctrine/dbal": "^3.0",
+        "doctrine/dbal": "^3.0 || ^4.0",
         "oskarstark/enum-helper": "^1.8",
         "oskarstark/trimmed-non-empty-string": "^1.9",
         "psr/log": "^3.0",
@@ -14,7 +14,7 @@
         "symfony/http-kernel": "^6.4 || ^7.0",
         "symfony/uid": "^6.4 || ^7.0",
         "thecodingmachine/safe": "^3.0",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11 || ^2.0"
     },
     "require-dev": {
         "zenstruck/foundry": "2.7.5"
