@@ -22,7 +22,10 @@ final readonly class File
         ?FileType $type = null,
     ) {
         if (!$type instanceof FileType) {
-            $extension = pathinfo($filepath->toString(), \PATHINFO_EXTENSION);
+            // The filepath can be a URL carrying query parameters (e.g. `….mp4?begin=…`)
+            $path = explode('?', $filepath->toString(), 2)[0];
+
+            $extension = pathinfo($path, \PATHINFO_EXTENSION);
 
             $this->type = match (strtolower($extension)) {
                 'mp4' => FileType::MP4,

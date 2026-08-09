@@ -58,13 +58,13 @@ final readonly class Stream
 
     /**
      * Returns a new Stream instance with the token appended to the URL as a query parameter.
-     * The token is appended as "tk_ors=<url_encoded_token>".
+     * The token is appended as "tk_ors=<url_safe_base64_token>".
      */
     public function withToken(Token $token): self
     {
         $urlString = $this->url->toString();
         $separator = str_contains($urlString, '?') ? '&' : '?';
-        $tokenParam = 'tk_ors='.$token->toUrlEncoded();
+        $tokenParam = 'tk_ors='.$token->toUrlSafeBase64();
 
         return new self(
             type: $this->type,

@@ -69,8 +69,12 @@ final readonly class Token
         return $at > $this->expiresAt;
     }
 
-    public function toUrlEncoded(): string
+    /**
+     * Encodes the token with URL-safe Base64 as recommended by the
+     * frame-accurate ORS API instead of URL encoding.
+     */
+    public function toUrlSafeBase64(): string
     {
-        return \str_replace('%2F', '/', \rawurlencode($this->value));
+        return strtr(base64_encode($this->value), '+/', '-_');
     }
 }
