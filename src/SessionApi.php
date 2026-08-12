@@ -9,6 +9,7 @@ use SensioLabs\Live2Vod\Api\Domain\Api\Response\CreateSessionResponse;
 use SensioLabs\Live2Vod\Api\Domain\Api\Response\SessionResponse;
 use SensioLabs\Live2Vod\Api\Domain\Identifier\SessionId;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class SessionApi implements SessionApiInterface
 {
@@ -38,9 +39,18 @@ final class SessionApi implements SessionApiInterface
 
     public function delete(SessionId $id): void
     {
-        $this->client->request(
+        $response = $this->client->request(
             Request::METHOD_DELETE,
             sprintf('api/sessions/%s', $id),
         );
+
+        if (Response::HTTP_NOT_FOUND === $response->getStatusCode()) {
+            // The session is already gone, which is the desired end state of a delete.
+            return;
+        }
+
+        // Triggers ClientExceptionInterface/ServerExceptionInterface for error responses,
+        // which would otherwise be thrown lazily outside the caller's try/catch.
+        $response->getHeaders();
     }
 }

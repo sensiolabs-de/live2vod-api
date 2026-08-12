@@ -6,6 +6,7 @@ namespace SensioLabs\Live2Vod\Api\Tests;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use SensioLabs\Live2Vod\Api\Client;
 use SensioLabs\Live2Vod\Api\ClientInterface;
 use SensioLabs\Live2Vod\Api\Domain\Api\Request\CreateSessionRequest;
 use SensioLabs\Live2Vod\Api\Domain\Api\Response\CreateSessionResponse;
@@ -15,7 +16,11 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Config;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form;
 use SensioLabs\Live2Vod\Api\Domain\Url;
 use SensioLabs\Live2Vod\Api\SessionApi;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class SessionApiTest extends TestCase
@@ -122,6 +127,7 @@ final class SessionApiTest extends TestCase
         $sessionId = new SessionId('01JAXRHM7JZSP4Y4PXSACN8CPT');
 
         $response = self::createStub(ResponseInterface::class);
+        $response->method('getStatusCode')->willReturn(204);
 
         $client = $this->createMock(ClientInterface::class);
         $client
@@ -135,5 +141,49 @@ final class SessionApiTest extends TestCase
 
         $api = new SessionApi(client: $client);
         $api->delete(id: $sessionId);
+    }
+
+    #[Test]
+    public function deleteDoesNotThrowWhenSessionDoesNotExist(): void
+    {
+        $mockResponse = new MockResponse(info: ['http_code' => 404]);
+
+        $client = new Client(baseUri: 'https://example.com/');
+        $client->withHttpClient(new MockHttpClient($mockResponse, 'https://example.com/'));
+
+        $api = new SessionApi(client: $client);
+        $api->delete(id: new SessionId('01JAXRHM7JZSP4Y4PXSACN8CPT'));
+
+        self::assertSame('DELETE', $mockResponse->getRequestMethod());
+    }
+
+    #[Test]
+    public function deleteThrowsOnClientError(): void
+    {
+        $mockResponse = new MockResponse(info: ['http_code' => 403]);
+
+        $client = new Client(baseUri: 'https://example.com/');
+        $client->withHttpClient(new MockHttpClient($mockResponse, 'https://example.com/'));
+
+        $api = new SessionApi(client: $client);
+
+        $this->expectException(ClientExceptionInterface::class);
+
+        $api->delete(id: new SessionId('01JAXRHM7JZSP4Y4PXSACN8CPT'));
+    }
+
+    #[Test]
+    public function deleteThrowsOnServerError(): void
+    {
+        $mockResponse = new MockResponse(info: ['http_code' => 500]);
+
+        $client = new Client(baseUri: 'https://example.com/');
+        $client->withHttpClient(new MockHttpClient($mockResponse, 'https://example.com/'));
+
+        $api = new SessionApi(client: $client);
+
+        $this->expectException(ServerExceptionInterface::class);
+
+        $api->delete(id: new SessionId('01JAXRHM7JZSP4Y4PXSACN8CPT'));
     }
 }

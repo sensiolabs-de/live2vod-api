@@ -24,10 +24,17 @@ use function Safe\parse_url;
 final readonly class StreamTokenizer implements StreamTokenizerInterface
 {
     /**
-     * Basic ISO 8601 format used by ORS playback URLs, e.g. "20260731T164311".
-     * The "!" resets all unparsed fields (fractional seconds) to zero.
+     * Basic ISO 8601 format used by legacy second-accurate ORS playback URLs,
+     * e.g. "20260731T164311". The "!" resets all unparsed fields (fractional
+     * seconds) to zero.
      */
     private const string TIME_FORMAT = '!Ymd\THis';
+
+    /**
+     * Frame-accurate ORS playback URLs carry milliseconds and the UTC
+     * designator, e.g. "20260728T080000.123Z".
+     */
+    private const string TIME_FORMAT_FRAME_ACCURATE = '!Ymd\THis.v\Z';
 
     public function __construct(private TokenGeneratorInterface $tokenGenerator)
     {
@@ -69,8 +76,10 @@ final readonly class StreamTokenizer implements StreamTokenizerInterface
 
         $value = $parameters[$name];
         Assert::string($value, \sprintf('Query parameter "%s" of stream URL "%s" must be a string.', $name, $url));
-        Assert::regex($value, '/^\d{8}T\d{6}$/', \sprintf('Query parameter "%s" of stream URL "%s" must match the format "Ymd\THis".', $name, $url));
+        Assert::regex($value, '/^\d{8}T\d{6}(\.\d{3}Z)?$/', \sprintf('Query parameter "%s" of stream URL "%s" must match the format "Ymd\THis" or "Ymd\THis.v\Z".', $name, $url));
 
-        return DateTimeImmutable::createFromFormat(self::TIME_FORMAT, $value, new \DateTimeZone('UTC'));
+        $format = str_ends_with($value, 'Z') ? self::TIME_FORMAT_FRAME_ACCURATE : self::TIME_FORMAT;
+
+        return DateTimeImmutable::createFromFormat($format, $value, new \DateTimeZone('UTC'));
     }
 }

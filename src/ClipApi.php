@@ -6,6 +6,7 @@ namespace SensioLabs\Live2Vod\Api;
 
 use SensioLabs\Live2Vod\Api\Domain\Identifier\ClipId;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class ClipApi implements ClipApiInterface
 {
@@ -24,10 +25,19 @@ final class ClipApi implements ClipApiInterface
             ];
         }
 
-        $this->client->request(
+        $response = $this->client->request(
             Request::METHOD_DELETE,
             sprintf('api/clips/%s', $id),
             $options,
         );
+
+        if (Response::HTTP_NOT_FOUND === $response->getStatusCode()) {
+            // The clip is already gone, which is the desired end state of a delete.
+            return;
+        }
+
+        // Triggers ClientExceptionInterface/ServerExceptionInterface for error responses,
+        // which would otherwise be thrown lazily outside the caller's try/catch.
+        $response->getHeaders();
     }
 }
