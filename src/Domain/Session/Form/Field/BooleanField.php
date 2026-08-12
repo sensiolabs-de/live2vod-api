@@ -10,6 +10,7 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Help;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Label;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Name;
 use SensioLabs\Live2Vod\Api\Domain\Session\Form\Placeholder;
+use Webmozart\Assert\Assert;
 
 /**
  * @phpstan-type BooleanFieldArray array{
@@ -19,8 +20,10 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Form\Placeholder;
  *     placeholder: string|null,
  *     help: string|null,
  *     disabled: bool,
- *     default: bool,
- *     linkedField: string|null
+ *     default: bool|null,
+ *     linkedField: string|null,
+ *     nullable: bool,
+ *     hidden: bool
  * }
  */
 final readonly class BooleanField implements Field
@@ -29,11 +32,16 @@ final readonly class BooleanField implements Field
         private Name $name,
         private Label $label,
         private bool $disabled = false,
-        private bool $default = false,
+        private ?bool $default = false,
+        private bool $nullable = false,
+        private bool $hidden = false,
         private ?Placeholder $placeholder = null,
         private ?Help $help = null,
         private ?Name $linkedField = null,
     ) {
+        if (null === $default) {
+            Assert::true($nullable, 'A "null" default is only allowed for nullable fields');
+        }
     }
 
     /**
@@ -45,7 +53,9 @@ final readonly class BooleanField implements Field
             name: new Name($data['name']),
             label: new Label($data['label']),
             disabled: $data['disabled'] ?? false,
-            default: $data['default'] ?? false,
+            default: \array_key_exists('default', $data) ? $data['default'] : false,
+            nullable: $data['nullable'] ?? false,
+            hidden: $data['hidden'] ?? false,
             placeholder: isset($data['placeholder']) ? new Placeholder($data['placeholder']) : null,
             help: isset($data['help']) ? new Help($data['help']) : null,
             linkedField: isset($data['linkedField']) ? new Name($data['linkedField']) : null,
@@ -66,6 +76,8 @@ final readonly class BooleanField implements Field
             'disabled' => $this->disabled,
             'default' => $this->default,
             'linkedField' => $this->linkedField?->toString(),
+            'nullable' => $this->nullable,
+            'hidden' => $this->hidden,
         ];
     }
 
@@ -84,9 +96,22 @@ final readonly class BooleanField implements Field
         return $this->disabled;
     }
 
-    public function getDefault(): bool
+    public function getDefault(): ?bool
     {
         return $this->default;
+    }
+
+    /**
+     * @phpstan-assert-if-false !null $this->getDefault()
+     */
+    public function isNullable(): bool
+    {
+        return $this->nullable;
+    }
+
+    public function isHidden(): bool
+    {
+        return $this->hidden;
     }
 
     public function isRequired(): bool
