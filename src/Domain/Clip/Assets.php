@@ -211,7 +211,7 @@ final readonly class Assets
     /**
      * @throws StreamNotFoundException
      */
-    public function getStreamByType(StreamType $type, ClipId $clipId): Stream
+    public function getStreamByType(StreamType $type, ?ClipId $clipId = null): Stream
     {
         if ([] === $this->streams) {
             throw StreamNotFoundException::noStreams($clipId);

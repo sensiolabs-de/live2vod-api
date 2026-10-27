@@ -10,13 +10,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class StreamNotFoundException extends NotFoundHttpException
 {
-    public static function forType(StreamType $type, ClipId $clipId): self
+    public static function forType(StreamType $type, ?ClipId $clipId = null): self
     {
-        return new self(\sprintf('Stream with type "%s" not found for clip "%s"', $type->value, (string) $clipId));
+        return new self(\sprintf('Stream with type "%s" not found%s', $type->value, self::forClip($clipId)));
     }
 
-    public static function noStreams(ClipId $clipId): self
+    public static function noStreams(?ClipId $clipId = null): self
     {
-        return new self(\sprintf('No streams found for clip "%s"', (string) $clipId));
+        return new self(\sprintf('No streams found%s', self::forClip($clipId)));
+    }
+
+    private static function forClip(?ClipId $clipId): string
+    {
+        return $clipId instanceof ClipId ? \sprintf(' for clip "%s"', (string) $clipId) : '';
     }
 }

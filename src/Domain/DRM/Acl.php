@@ -15,7 +15,7 @@ use SensioLabs\Live2Vod\Api\Domain\Session\Channel;
  *
  * @see docs/Token Authentication_20251010.pdf
  */
-final readonly class Acl implements \Stringable
+final readonly class Acl implements \Stringable, AclInterface
 {
     public function __construct(
         public Channel $channel,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SensioLabs\Live2Vod\Api\DRM;
 
 use SensioLabs\Live2Vod\Api\Domain\DRM\Acl;
+use SensioLabs\Live2Vod\Api\Domain\DRM\AclInterface;
 use SensioLabs\Live2Vod\Api\Domain\DRM\GeoLocation;
 use SensioLabs\Live2Vod\Api\Domain\DRM\Token;
 use Safe\DateTimeImmutable;
@@ -38,14 +39,34 @@ final readonly class TokenGenerator implements TokenGeneratorInterface
     ): Token {
         Assert::greaterThan($endRec->getTimestamp(), $beginRec->getTimestamp(), 'endRec must be greater than beginRec.');
 
-        $issuedAt = new DateTimeImmutable();
-        $expiresAt = null;
-
         // The "Z" designator is part of the format, so make sure the dates are UTC
         $utc = new \DateTimeZone('UTC');
-        $beginRecFormatted = DateTimeImmutable::createFromInterface($beginRec)->setTimezone($utc)->format(self::DATE_FORMAT);
-        $endRecFormatted = DateTimeImmutable::createFromInterface($endRec)->setTimezone($utc)->format(self::DATE_FORMAT);
 
+        return $this->sign([
+            \sprintf('acl=%s', $acl->toString()),
+            \sprintf('geo_loc=%s', $geoLocation->value),
+            \sprintf('begin_rec=%s', DateTimeImmutable::createFromInterface($beginRec)->setTimezone($utc)->format(self::DATE_FORMAT)),
+            \sprintf('end_rec=%s', DateTimeImmutable::createFromInterface($endRec)->setTimezone($utc)->format(self::DATE_FORMAT)),
+        ]);
+    }
+
+    public function generateForVod(AclInterface $acl, GeoLocation $geoLocation): Token
+    {
+        return $this->sign([
+            \sprintf('acl=%s', $acl->toString()),
+            \sprintf('geo_loc=%s', $geoLocation->value),
+        ]);
+    }
+
+    /**
+     * Prepends "exp" if a TTL is configured and appends the "hmac" of all fields.
+     *
+     * @param list<string> $fields
+     */
+    private function sign(array $fields): Token
+    {
+        $issuedAt = new DateTimeImmutable();
+        $expiresAt = null;
         $tokenFields = [];
 
         if (null !== $this->ttlInDays) {
@@ -53,10 +74,7 @@ final readonly class TokenGenerator implements TokenGeneratorInterface
             $tokenFields[] = \sprintf('exp=%d', $expiresAt->getTimestamp());
         }
 
-        $tokenFields[] = \sprintf('acl=%s', $acl->toString());
-        $tokenFields[] = \sprintf('geo_loc=%s', $geoLocation->value);
-        $tokenFields[] = \sprintf('begin_rec=%s', $beginRecFormatted);
-        $tokenFields[] = \sprintf('end_rec=%s', $endRecFormatted);
+        $tokenFields = [...$tokenFields, ...$fields];
 
         // Build hash source (same as token fields for ACL-based tokens)
         $hashSource = implode('~', $tokenFields);
